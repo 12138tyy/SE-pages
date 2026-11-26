@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SE-JEPA learns reusable predictors from deployment experience. Explore the method, simulation rollouts, and original evaluation data.">
+  <meta name="theme-color" content="#ffffff">
+  <title>SE-JEPA | Self-Evolving Latent World Models</title>
+  <link rel="stylesheet" href="./styles.css?v=7">
+  <script defer src="./site.js?v=4"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="project shell" id="top">
+    <h1>SE-JEPA<span>Self-Evolving Latent World Models</span></h1>
+    <nav class="project-links" aria-label="Paper and project resources">
+      <button class="project-resource" type="button" disabled>
+        <span class="resource-icon resource-icon-paper" aria-hidden="true"></span>
+        Paper
+      </button>
+      <a class="project-resource" href="https://github.com/Celveen/SE-JEPA/tree/paper-ready">
+        <span class="resource-icon resource-icon-code" aria-hidden="true">&lt;/&gt;</span>
+        Code
+      </a>
+      <button class="project-resource" type="button" disabled>
+        <span class="resource-icon resource-icon-data" aria-hidden="true"></span>
+        Data &amp; Checkpoints
+      </button>
+    </nav>
+  </header>
+
+  <main class="shell" id="main">
+    <figure class="teaser">
+      <img class="animation" src="./assets/teaser.gif" data-still="./assets/teaser.webp" width="914" height="224" fetchpriority="high"
+        alt="Recorded SE-JEPA rollouts in PushT, PushObj, Rope, and Granular, from left to right.">
+      <figcaption><span class="teaser-labels"><span>PushT</span><span>PushObj</span><span>Rope</span><span>Granular</span></span></figcaption>
+    </figure>
+    <div class="animation-tools"><button type="button" data-animation-toggle hidden>Pause animations</button></div>
+
+    <section class="abstract reading" id="abstract" aria-labelledby="abstract-title">
+      <h2 id="abstract-title">Abstract</h2>
+      <p>Latent world models can adapt during a single task, but those updates may be specific to the episode. SE-JEPA uses the trajectories collected during deployment to train reusable predictors across episodes. It groups experience by predictive compatibility, trains a slow predictor for each domain through replay, and validates each predictor before making it available for reuse. When conditions recur, feedback from the current episode determines which predictor to use for planning. We evaluate this approach under visual and shape shifts in pushing tasks and on deformable-object manipulation.</p>
+      <p class="summary"><strong>TL;DR.</strong> SE-JEPA adapts to the current task and consolidates past trajectories into predictors it can reuse on future tasks.</p>
+    </section>
+
+    <section class="paper-section" id="approach" aria-labelledby="approach-title">
+      <div class="reading">
+        <h2 id="approach-title">Approach</h2>
+        <p><strong>Predictor selection.</strong> The model evaluates the base predictor and eligible slow predictors on the same observed transitions in a fixed reference representation. Familiar episodes and episodes with no eligible alternative use the base predictor.</p>
+        <p><strong>Fast adaptation.</strong> After executing a block of actions, the model uses the observed transitions to update the encoder projection and predictor adapters inside the current episode.</p>
+        <p><strong>Experience consolidation.</strong> At the end of an episode, validated trajectories can enter an existing replay buffer or accumulate toward a new domain. Slow predictors train on replayed trajectories, and validation determines when they become eligible for selection.</p>
+      </div>
+      <figure class="paper-figure architecture" id="method-animation" aria-labelledby="method-caption">
+        <img class="animation" src="./assets/architecture-animation.webp" data-still="./assets/architecture-still.webp" width="1920" height="687" loading="lazy"
+          alt="Original SE-JEPA architecture animation showing predictor selection, fast adaptation during planning, and the validation and replay branches used to consolidate experience.">
+        <figcaption id="method-caption">The original SE-JEPA architecture animation.</figcaption>
+        <div class="animation-tools figure-tools">
+          <button type="button" data-animation-toggle hidden>Pause animations</button>
+          <a href="./assets/architecture-animation.webp">Open full-size animation</a>
+        </div>
+      </figure>
+      <section class="reading key-equations" aria-labelledby="equations-title">
+        <h3 id="equations-title">Key Equations</h3>
+        <div class="equation">
+          <h4>Replay training</h4>
+          <div class="equation-display">
+            <div class="equation-math"><math display="block" aria-label="Paper equation 1. Expected squared next-embedding prediction error over domain replay."><mrow>
+              <msub><mi>ℒ</mi><mi>k</mi></msub><mo>(</mo><msub><mi>φ</mi><mi>k</mi></msub><mo>)</mo><mo>=</mo>
+              <msub><mi>𝔼</mi><mrow><mo>(</mo><mi>x</mi><mo>,</mo><msup><mi>z</mi><mo>+</mo></msup><mo>)</mo><mo>∼</mo><msub><mi>ℛ</mi><mi>k</mi></msub></mrow></msub>
+              <msubsup><mrow><mo>‖</mo><msub><mi>P</mi><msub><mi>φ</mi><mi>k</mi></msub></msub><mo>(</mo><mi>x</mi><mo>)</mo><mo>−</mo><msup><mi>z</mi><mo>+</mo></msup><mo>‖</mo></mrow><mn>2</mn><mn>2</mn></msubsup>
+            </mrow></math></div>
+            <span class="equation-number">(1)</span>
+          </div>
+          <p>The slow predictor learns from its domain’s replay buffer. <i>x</i> is a short observation-and-action history, and <i>z</i><sup>+</sup> is the next observation embedding.</p>
+        </div>
+        <div class="equation">
+          <h4>Trajectory validation</h4>
+          <div class="equation-display">
+            <div class="equation-math"><math display="block" aria-label="Paper equation 4. Candidate rollout error divided by the base predictor’s rollout error on the same trajectory."><mrow>
+              <msub><mi>r</mi><mrow><mi>e</mi><mo>,</mo><mi>k</mi></mrow></msub><mo>=</mo>
+              <mfrac>
+                <mrow><msub><mi>ℒ</mi><mtext>roll</mtext></msub><mo>(</mo><msub><mi>φ</mi><mi>k</mi></msub><mo>;</mo><msub><mi>τ</mi><mi>e</mi></msub><mo>)</mo></mrow>
+                <mrow><msub><mi>ℒ</mi><mtext>roll</mtext></msub><mo>(</mo><msub><mi>θ</mi><mn>0</mn></msub><mo>;</mo><msub><mi>τ</mi><mi>e</mi></msub><mo>)</mo></mrow>
+              </mfrac>
+            </mrow></math></div>
+            <span class="equation-number">(4)</span>
+          </div>
+          <p>The candidate and the frozen base predictor use the same recorded actions. A lower ratio means the candidate predicts the trajectory more accurately relative to the base.</p>
+        </div>
+        <div class="equation">
+          <h4>Predictor retrieval</h4>
+          <div class="equation-display">
+            <div class="equation-math"><math display="block" aria-label="Paper equation 5. Select the base or eligible domain predictor with the lowest error on the observed transitions."><mrow>
+              <msup><mi>k</mi><mo>⋆</mo></msup><mo>=</mo>
+              <munder><mrow><mi mathvariant="normal">arg</mi><mspace width=".17em"></mspace><mi mathvariant="normal">min</mi></mrow><mrow><mi>k</mi><mo>∈</mo><mo>{</mo><mn>0</mn><mo>}</mo><mo>∪</mo><msub><mi>𝒦</mi><mtext>eligible</mtext></msub></mrow></munder>
+              <msub><mi>ℒ</mi><mtext>pred</mtext></msub><mo>(</mo><msub><mi>φ</mi><mi>k</mi></msub><mo>;</mo><msub><mi>ℬ</mi><mrow><mi>e</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>)</mo><mo>,</mo>
+              <mspace width=".65em"></mspace><msub><mi>φ</mi><mn>0</mn></msub><mo>=</mo><msub><mi>θ</mi><mn>0</mn></msub>
+            </mrow></math></div>
+            <span class="equation-number">(5)</span>
+          </div>
+          <p>During the first three replans of an unfamiliar episode, the base and eligible slow predictors compete on the transitions observed so far.</p>
+        </div>
+      </section>
+    </section>
+
+    <section class="paper-section" id="planning" aria-labelledby="planning-title">
+      <div class="reading">
+        <h2 id="planning-title">Planning with SE-JEPA</h2>
+        <p>SE-JEPA encodes the current observation and goal, predicts the effects of candidate action sequences in latent space, and executes the first block of the selected sequence. It replans after observing the result. We report pushing results for gradient descent (GD) and the cross-entropy method (CEM).</p>
+        <h3>Planning Results</h3>
+        <p>The paper’s CEM comparison covers seven PushObj shapes, six PushT visual shifts, and two deformable-object tasks. The PushObj unseen subset contains the I, square, and small T shapes. The PushT color subset contains three recoloring conditions.</p>
+      </div>
+
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Paper Table 1, goal-conditioned planning with CEM">
+        <table class="paper-results-table">
+          <caption>Goal-conditioned planning with CEM · Paper Table 1</caption>
+          <colgroup span="1"></colgroup><colgroup span="3"></colgroup><colgroup span="3"></colgroup><colgroup span="1"></colgroup><colgroup span="1"></colgroup>
+          <thead>
+            <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="3">PushObj</th><th scope="colgroup" colspan="3">PushT visual shifts</th><th scope="colgroup">Rope</th><th scope="colgroup">Granular</th></tr>
+            <tr><th scope="col">All-7 (%)</th><th scope="col">Unseen (%)</th><th scope="col">Replans ↓</th><th scope="col">All-6 (%)</th><th scope="col">Color-3 (%)</th><th scope="col">Replans ↓</th><th scope="col">CD ↓</th><th scope="col">CD ↓</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">DreamerV3</th><td>7.1</td><td>5.3</td><td>28.36</td><td>5.7</td><td>0.0</td><td>28.91</td><td>2.49</td><td>1.05</td></tr>
+            <tr><th scope="row">IRIS</th><td>2.9</td><td>2.7</td><td>29.37</td><td>6.0</td><td>6.7</td><td>28.85</td><td>1.11</td><td>0.37</td></tr>
+            <tr><th scope="row">R3M</th><td>18.9</td><td>18.0</td><td>25.49</td><td>21.7</td><td>27.3</td><td>25.00</td><td>1.13</td><td>0.95</td></tr>
+            <tr><th scope="row">DINO CLS</th><td>14.9</td><td>10.0</td><td>26.77</td><td>34.7</td><td>35.3</td><td>22.38</td><td>0.84</td><td>0.79</td></tr>
+            <tr><th scope="row">DINO-WM</th><td>62.0</td><td>46.0</td><td>16.15</td><td>33.0</td><td>37.3</td><td>22.05</td><td>0.491</td><td>0.301</td></tr>
+            <tr><th scope="row">LeWM</th><td>64.0</td><td>50.0</td><td>16.28</td><td>40.3</td><td>16.0</td><td>21.45</td><td>0.786</td><td>0.322</td></tr>
+            <tr><th scope="row">DDP-WM</th><td>57.7</td><td>43.3</td><td>17.59</td><td>52.7</td><td>57.3</td><td>18.39</td><td>0.677</td><td>0.259</td></tr>
+            <tr><th scope="row">Frozen (pretrained)</th><td>43.8</td><td>36.2</td><td>21.08</td><td>48.3</td><td>33.6</td><td>20.10</td><td>0.491</td><td>0.301</td></tr>
+            <tr><th scope="row">AdaJEPA</th><td>70.4</td><td>54.4</td><td>16.02</td><td>60.2</td><td>42.2</td><td>18.46</td><td>0.629</td><td>0.304</td></tr>
+            <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>80.4</td><td>73.1</td><td>12.99</td><td>76.1</td><td>65.2</td><td>14.46</td><td>0.252</td><td>0.220</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="reading">
+        <p class="table-note">Replans are averaged with a cap of 30 for unsuccessful episodes. CD is final Chamfer distance. The SE-JEPA PushObj results above are from the fifth online round.</p>
+        <h3 id="held-out">Held-Out Planning</h3>
+        <p>On goals excluded from learning, the paper evaluates SE-JEPA with memory writes disabled and retrieval and fast adaptation enabled. Success gains over AdaJEPA are 17.11 percentage points (GD) and 15.41 (CEM) on unseen PushObj shapes, and 18.74 (GD) and 15.89 (CEM) across six PushT visual shifts.</p>
+      </div>
+      <figure class="paper-figure narrow-figure">
+        <a href="./assets/paper-figure-4.webp" aria-label="Open the full-size held-out success gains figure">
+          <img src="./assets/paper-figure-4.webp" width="1700" height="1396" loading="lazy"
+            alt="Paper Figure 4 showing held-out success-rate gains of SE-JEPA over AdaJEPA by PushObj shape and PushT visual condition for GD and CEM.">
+        </a>
+        <figcaption>Held-out success gains by condition and planner · Paper Figure 4</figcaption>
+      </figure>
+
+      <div class="reading qualitative-intro">
+        <h3>Qualitative Rollouts</h3>
+        <p>Each set shows the goal, a baseline rollout, and the SE-JEPA rollout from the same start state. The cases below illustrate individual outcomes.</p>
+      </div>
+      <div class="rollouts">
+        <figure>
+          <h4>PushT</h4>
+          <img class="animation" src="./assets/pusht.gif" data-still="./assets/pusht.webp" width="704" height="298" loading="lazy"
+            alt="Red-object case 33. The left panel shows the goal. AdaJEPA fails in the middle panel and SE-JEPA reaches the goal on the right.">
+          <figcaption>Red-object shift, CEM. AdaJEPA stops after 30 replans without reaching the goal. SE-JEPA succeeds in 9 replans.</figcaption>
+        </figure>
+        <figure>
+          <h4>PushObj</h4>
+          <img class="animation" src="./assets/pushobj.gif" data-still="./assets/pushobj.webp" width="704" height="298" loading="lazy"
+            alt="I-shape case 1. The left panel shows the goal. AdaJEPA fails in the middle panel and SE-JEPA reaches the goal on the right.">
+          <figcaption>Unseen I shape, CEM. AdaJEPA stops after 30 replans without reaching the goal. SE-JEPA succeeds in 24 replans.</figcaption>
+        </figure>
+        <figure>
+          <h4>Rope</h4>
+          <img class="animation" src="./assets/rope.gif" data-still="./assets/rope.webp" width="704" height="298" loading="lazy"
+            alt="Rope episode 121. The goal, Frozen DINO-WM rollout, and SE-JEPA rollout are shown from left to right.">
+          <figcaption>Episode 121. Final Chamfer distance is 1.7795 for Frozen DINO-WM and 0.0613 for SE-JEPA.</figcaption>
+        </figure>
+        <figure>
+          <h4>Granular</h4>
+          <img class="animation" src="./assets/granular.gif" data-still="./assets/granular.webp" width="704" height="298" loading="lazy"
+            alt="Granular episode 104. The goal, Frozen DINO-WM rollout, and SE-JEPA rollout are shown from left to right.">
+          <figcaption>Episode 104. Final Chamfer distance is 0.3911 for Frozen DINO-WM and 0.1450 for SE-JEPA.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="paper-section" id="continual-learning" aria-labelledby="continual-title">
+      <div class="reading">
+        <h2 id="continual-title">Evaluating Continual Learning</h2>
+        <p>With a shared memory across 14 recurring shape and visual conditions, combined online success rises from 65.3% to 75.5% over five deployment rounds. Shape-task success rises from 73.4% to 82.0%, and visual-task success from 57.2% to 68.9%.</p>
+      </div>
+      <figure class="paper-figure">
+        <a href="./assets/paper-figure-8.webp" aria-label="Open the full-size recurring-conditions figure">
+          <img src="./assets/paper-figure-8.webp" width="2300" height="897" loading="lazy"
+            alt="Paper Figure 8 showing combined, shape, and visual success across five online deployment rounds, plus images of all 14 conditions.">
+        </a>
+        <figcaption>Continual learning across recurring conditions with a shared memory · Paper Figure 8</figcaption>
+      </figure>
+      <div class="reading">
+        <h3>Mixed Rope and Granular Tasks</h3>
+        <p>In a separate CEM experiment, tasks alternate between Rope and Granular with 50 new goals per material in each round. A shared rope-pretrained DINO-WM serves as the base model. Fast adaptation remains enabled.</p>
+      </div>
+      <div class="reading table-wrap" tabindex="0" role="region" aria-label="Paper Table 2, mixed rope and granular tasks">
+        <table>
+          <caption>Mixed-material deployment with CEM · Paper Table 2</caption>
+          <thead><tr><th scope="col">Round</th><th scope="col">Rope CD ↓</th><th scope="col">Granular CD ↓</th><th scope="col">Purity (%)</th><th scope="col">Retrieval (%)</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">1</th><td>0.598</td><td>0.471</td><td>100</td><td>96.6</td></tr>
+            <tr><th scope="row">2</th><td>0.452</td><td>0.369</td><td>100</td><td>100.0</td></tr>
+            <tr><th scope="row">3</th><td>0.412</td><td>0.355</td><td>100</td><td>100.0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="reading qualitative-intro">
+        <h3>Checkpoint Comparisons</h3>
+        <p>In these archived rollout examples, the same start and goal are rerun with saved predictors from Rounds 1 and 3. Both Rope runs meet the success threshold. The Granular example improves from 0.2284 to 0.2100 and stays above its 0.20 success threshold.</p>
+      </div>
+      <figure class="paper-figure">
+        <img class="animation" src="./assets/checkpoint-rollouts.gif" data-still="./assets/checkpoint-rollouts.webp" width="960" height="244" loading="lazy"
+          alt="Rope and Granular checkpoint comparisons. Each task shows Round 1, the goal, and Round 3 in three aligned panes.">
+        <figcaption>Selected checkpoint re-evaluations. Lower final CD is better.</figcaption>
+      </figure>
+    </section>
+
+    <section class="paper-section reading sources" id="data" aria-labelledby="data-title">
+      <h2 id="data-title">Data &amp; Sources</h2>
+      <p>The quantitative results and equations above are from <cite>SE-JEPA: Self-Evolving Latent World Models</cite>. The files below contain archived evaluation summaries and the records used for illustrative rollouts.</p>
+      <ul>
+        <li><a href="./data/pusht-held-out.json" download>PushT held-out summary (JSON)</a> and <a href="./data/pushobj-held-out.json" download>PushObj held-out summary (JSON)</a></li>
+        <li><a href="./data/rope-rounds.csv" download>Rope episode records (CSV)</a> and <a href="./data/granular-rounds.csv" download>Granular episode records (CSV)</a></li>
+        <li><a href="./data/paired-chamfer.csv" download>Paired Chamfer distances (CSV)</a> and <a href="https://github.com/Celveen/SE-JEPA/tree/community-simulation-frames/media/robot_arm_qualitative">original robot simulation frames</a></li>
+      </ul>
+    </section>
+  </main>
+  <footer class="shell"><a href="#top">Back to top</a></footer>
+</body>
+</html>
