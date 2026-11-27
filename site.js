@@ -294,43 +294,28 @@ function connectCitation() {
 
 connectCitation();
 
-function connectPlanningResults() {
-  const buttons = [...document.querySelectorAll(".planning-switch button[data-planner]")];
-  const panels = [...document.querySelectorAll("[data-planning-panel]")];
-  if (!buttons.length) return;
+function connectResultSummary() {
+  const switcher = document.querySelector("#key-results .highlight-switch");
+  if (!switcher) return;
 
-  function choose(planner) {
-    for (const button of buttons) button.setAttribute("aria-pressed", String(button.dataset.planner === planner));
-    for (const panel of panels) panel.hidden = panel.dataset.planningPanel !== planner;
-  }
-
-  function resultTarget(fragment) {
-    const target = document.getElementById(fragment.slice(1));
-    return target?.closest("[data-planning-panel]") ? target : null;
-  }
-
-  function chooseFromFragment(fragment) {
-    const target = resultTarget(fragment);
-    if (!target) return;
-
-    const panel = target.closest("[data-planning-panel]");
-    if (panel) choose(panel.dataset.planningPanel);
-  }
+  const buttons = switcher.querySelectorAll("button[data-planner]");
+  const panels = document.querySelectorAll("#key-results [data-summary-planner]");
 
   for (const button of buttons) {
-    button.addEventListener("click", () => choose(button.dataset.planner));
-    button.closest(".planning-switch").hidden = false;
+    button.addEventListener("click", () => {
+      const planner = button.dataset.planner;
+      for (const option of buttons) {
+        option.setAttribute("aria-pressed", String(option === button));
+      }
+      for (const panel of panels) {
+        panel.hidden = panel.dataset.summaryPlanner !== planner;
+      }
+    });
   }
-  for (const link of document.querySelectorAll('a[href^="#"]')) {
-    if (resultTarget(link.hash)) link.addEventListener("click", () => chooseFromFragment(link.hash));
-  }
-  window.addEventListener("hashchange", () => chooseFromFragment(location.hash));
-
-  choose("cem");
-  chooseFromFragment(location.hash);
+  switcher.hidden = false;
 }
 
-connectPlanningResults();
+connectResultSummary();
 
 function enableScrollReveal() {
   if (motionPreference.matches || !("IntersectionObserver" in window)) return;
