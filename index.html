@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="SE-JEPA learns reusable predictors from deployment experience. Explore the method, simulation rollouts, and original evaluation data.">
-  <meta name="theme-color" content="#fbfcf9">
+  <meta name="theme-color" content="#ffffff">
   <title>SE-JEPA | Self-Evolving Latent World Models</title>
   <link rel="stylesheet" href="./assets/fonts/InterVariable.css">
   <link rel="stylesheet" href="./assets/fonts/InterTight.css">
-  <link rel="stylesheet" href="./styles.css?v=23">
-  <script defer src="./site.js?v=8"></script>
+  <link rel="stylesheet" href="./styles.css?v=24">
+  <script defer src="./site.js?v=9"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -74,36 +74,35 @@
             </div>
           </div>
         </div>
-        <figure class="opening-overview">
+        <figure class="opening-overview" data-animation-group>
           <figcaption class="opening-overview-heading">
             <div>
               <h2>Simulation overview</h2>
-              <p>Goal-conditioned planning with SE-JEPA</p>
             </div>
             <button class="opening-playback" type="button" data-animation-toggle aria-label="Pause animations" hidden></button>
           </figcaption>
           <ul class="opening-scenes" role="list">
             <li class="opening-scene scene-pusht">
               <div class="opening-scene-image">
-                <img class="animation" src="./assets/teaser.gif" data-still="./assets/teaser.webp" width="914" height="224" fetchpriority="high" alt="A red T-shaped block is pushed toward its target.">
+                <video class="animation" src="./assets/teaser.mp4" poster="./assets/teaser.webp" width="914" height="224" muted playsinline loop preload="none" role="img" aria-label="A red T-shaped block is pushed toward its target."></video>
               </div>
               <span>PushT</span>
             </li>
             <li class="opening-scene scene-pushobj">
               <div class="opening-scene-image">
-                <img class="animation" src="./assets/teaser.gif" data-still="./assets/teaser.webp" width="914" height="224" alt="A differently shaped object is pushed toward its target.">
+                <video class="animation" src="./assets/teaser.mp4" poster="./assets/teaser.webp" width="914" height="224" muted playsinline loop preload="none" role="img" aria-label="A differently shaped object is pushed toward its target."></video>
               </div>
               <span>PushObj</span>
             </li>
             <li class="opening-scene scene-rope">
               <div class="opening-scene-image">
-                <img class="animation" src="./assets/teaser.gif" data-still="./assets/teaser.webp" width="914" height="224" alt="A robot arm rearranges a rope on a tabletop.">
+                <video class="animation" src="./assets/teaser.mp4" poster="./assets/teaser.webp" width="914" height="224" muted playsinline loop preload="none" role="img" aria-label="A robot arm rearranges a rope on a tabletop."></video>
               </div>
               <span>Rope</span>
             </li>
             <li class="opening-scene scene-granular">
               <div class="opening-scene-image">
-                <img class="animation" src="./assets/teaser.gif" data-still="./assets/teaser.webp" width="914" height="224" alt="A robot arm moves blue particles across a tabletop.">
+                <video class="animation" src="./assets/teaser.mp4" poster="./assets/teaser.webp" width="914" height="224" muted playsinline loop preload="none" role="img" aria-label="A robot arm moves blue particles across a tabletop."></video>
               </div>
               <span>Granular</span>
             </li>
@@ -154,7 +153,7 @@
 
 
 
-    <section class="paper-section gallery-band" aria-labelledby="qualitative-rollouts">
+    <section class="paper-section gallery-band" aria-labelledby="qualitative-rollouts" data-animation-group>
       <div class="shell gallery">
         <div class="section-heading" data-scroll-reveal>
           <h2 id="qualitative-rollouts">Qualitative Rollouts</h2>
@@ -173,37 +172,36 @@
             <figure data-task="pusht">
               <h3>PushT</h3>
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>AdaJEPA</span><span>SE-JEPA</span></div>
-              <img class="animation" src="./assets/pusht-clean.webp" data-still="./assets/pusht-clean-still.webp" width="688" height="224" loading="lazy"
-                alt="The left panel shows the goal. AdaJEPA fails in the middle panel and SE-JEPA reaches the goal on the right.">
+              <video class="animation" src="./assets/pusht-clean.mp4" poster="./assets/pusht-clean-still.webp" width="688" height="224" muted playsinline loop preload="none"
+                role="img" aria-label="The left panel shows the goal. AdaJEPA fails in the middle panel and SE-JEPA reaches the goal on the right."></video>
               <figcaption>Red-object shift, CEM. AdaJEPA stops after 30 replans without reaching the goal. SE-JEPA succeeds in 9 replans.</figcaption>
             </figure>
             <figure data-task="pushobj">
               <h3>PushObj</h3>
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>AdaJEPA</span><span>SE-JEPA</span></div>
-              <img class="animation" src="./assets/pushobj-clean.webp" data-still="./assets/pushobj-clean-still.webp" width="688" height="224" loading="lazy"
-                alt="The left panel shows the I-shape goal. AdaJEPA fails in the middle panel and SE-JEPA reaches the goal on the right.">
+              <video class="animation" src="./assets/pushobj-clean.mp4" poster="./assets/pushobj-clean-still.webp" width="688" height="224" muted playsinline loop preload="none"
+                role="img" aria-label="The left panel shows the I-shape goal. AdaJEPA fails in the middle panel and SE-JEPA reaches the goal on the right."></video>
               <figcaption>Unseen I shape, CEM. AdaJEPA stops after 30 replans without reaching the goal. SE-JEPA succeeds in 24 replans.</figcaption>
             </figure>
             <figure data-task="rope">
               <h3>Rope</h3>
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>Frozen DINO&#8209;WM</span><span>SE-JEPA</span></div>
-              <img class="animation" src="./assets/rope-clean.webp" data-still="./assets/rope-clean-still.webp" width="688" height="224" loading="lazy"
-                alt="The rope goal, Frozen DINO-WM rollout, and SE-JEPA rollout are shown from left to right.">
+              <video class="animation" src="./assets/rope-clean.mp4" poster="./assets/rope-clean-still.webp" width="688" height="224" muted playsinline loop preload="none"
+                role="img" aria-label="The rope goal, Frozen DINO-WM rollout, and SE-JEPA rollout are shown from left to right."></video>
               <figcaption>Final Chamfer distance is 1.7795 for Frozen DINO-WM and 0.0613 for SE-JEPA.</figcaption>
             </figure>
             <figure data-task="granular">
               <h3>Granular</h3>
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>Frozen DINO&#8209;WM</span><span>SE-JEPA</span></div>
-              <img class="animation" src="./assets/granular-clean.webp" data-still="./assets/granular-clean-still.webp" width="688" height="224" loading="lazy"
-                alt="The granular goal, Frozen DINO-WM rollout, and SE-JEPA rollout are shown from left to right.">
+              <video class="animation" src="./assets/granular-clean.mp4" poster="./assets/granular-clean-still.webp" width="688" height="224" muted playsinline loop preload="none"
+                role="img" aria-label="The granular goal, Frozen DINO-WM rollout, and SE-JEPA rollout are shown from left to right."></video>
               <figcaption>Final Chamfer distance is 0.3911 for Frozen DINO-WM and 0.1450 for SE-JEPA.</figcaption>
             </figure>
           </div>
         </div>
         <div class="animation-tools"><button type="button" data-animation-toggle hidden>Pause animations</button></div>
         <details class="comparison-summary" id="comparison-summary" data-scroll-reveal>
-          <summary>Comparison summary from the project animation <span class="summary-icon" aria-hidden="true"></span></summary>
-          <p>Each row shows a shared goal and the final states reached by both methods.</p>
+          <summary>Rollout comparison summary <span class="summary-icon" aria-hidden="true"></span></summary>
           <div class="summary-grid">
             <figure>
               <figcaption>PushT</figcaption>
@@ -250,14 +248,14 @@
     <section class="paper-section method-band" id="approach" aria-labelledby="approach-title">
       <div class="shell">
         <h2 id="approach-title" data-scroll-reveal>Approach</h2>
-        <figure class="paper-figure paper-overview" id="paper-overview" aria-labelledby="paper-overview-caption" data-scroll-reveal>
-          <img class="animation" src="./assets/figure-1-overview.webp" data-still="./assets/figure-1-overview-still.webp" width="1855" height="552" loading="lazy"
-            alt="Deployment experience builds validated memory. SE-JEPA retrieves compatible predictors when shifts return, with examples comparing SE-JEPA and AdaJEPA on unseen objects and colors.">
+        <figure class="paper-figure paper-overview" id="paper-overview" aria-labelledby="paper-overview-caption" data-scroll-reveal data-animation-group>
+          <video class="animation" src="./assets/figure-1-overview.mp4" poster="./assets/figure-1-overview-still.webp" width="1856" height="552" muted playsinline loop preload="none"
+            role="img" aria-label="Deployment experience builds validated memory. SE-JEPA retrieves compatible predictors when shifts return, with examples comparing SE-JEPA and AdaJEPA on unseen objects and colors."></video>
           <figcaption>
             <span id="paper-overview-caption">From episodic adaptation to reusable predictive knowledge · Paper Figure 1</span>
             <span class="animation-tools figure-tools">
-              <button type="button" data-animation-toggle hidden>Pause animations</button>
-              <a href="./assets/figure-1-overview.webp">Open full-size overview</a>
+              <button type="button" data-animation-toggle hidden>Pause animation</button>
+              <a href="./assets/figure-1-overview-still.webp">Open full-size diagram</a>
             </span>
           </figcaption>
         </figure>
@@ -275,14 +273,14 @@
             <p>At the end of an episode, validated trajectories can enter an existing replay buffer or accumulate toward a new domain. Slow predictors train on replayed trajectories, and validation determines when they become eligible for selection.</p>
           </li>
         </ol>
-        <figure class="paper-figure" id="method-animation" aria-labelledby="method-caption" data-scroll-reveal>
-          <img class="animation" src="./assets/architecture-animation.webp" data-still="./assets/architecture-still.webp" width="1920" height="687" loading="lazy"
-            alt="Original SE-JEPA architecture animation showing predictor selection, fast adaptation during planning, and the validation and replay branches used to consolidate experience.">
-          <figcaption id="method-caption">The original SE-JEPA architecture animation.</figcaption>
-          <div class="animation-tools figure-tools">
-            <button type="button" data-animation-toggle hidden>Pause animations</button>
-            <a href="./assets/architecture-animation.webp">Open full-size animation</a>
-          </div>
+        <figure class="paper-figure" id="method-animation" aria-labelledby="method-caption" data-scroll-reveal data-animation-group>
+          <figcaption class="animation-tools figure-tools method-animation-header">
+            <strong id="method-caption">SE-JEPA architecture</strong>
+            <button type="button" data-animation-toggle hidden>Pause animation</button>
+            <a href="./assets/architecture-method-poster.webp">Open full-size diagram</a>
+          </figcaption>
+          <video class="animation" src="./assets/architecture-method.mp4" poster="./assets/architecture-method-poster.webp" width="960" height="544" muted playsinline loop preload="none"
+            role="img" aria-label="SE-JEPA architecture animation showing predictor selection, fast adaptation during planning, and the validation and replay branches used to consolidate experience."></video>
         </figure>
         <div class="reading method-equations" data-scroll-reveal>
           <p><strong>Replay training.</strong> The slow predictor minimizes its next-embedding prediction error over the domain’s replay buffer. Here <i>x</i> is a short observation-and-action history, and <i>z</i><sup>+</sup> is the next observation embedding.</p>
@@ -362,7 +360,7 @@
       </figure>
     </section>
 
-    <section class="paper-section shell" id="continual-learning" aria-labelledby="continual-title">
+    <section class="paper-section shell" id="continual-learning" aria-labelledby="continual-title" data-animation-group>
       <div class="reading" data-scroll-reveal>
         <h2 id="continual-title">Evaluating Continual Learning</h2>
         <p>With a shared memory across 14 recurring shape and visual conditions, combined online success rises from 65.3% to 75.5% over five deployment rounds. Shape-task success rises from 73.4% to 82.0%, and visual-task success from 57.2% to 68.9%.</p>
@@ -394,20 +392,21 @@
       <div class="reading qualitative-intro" data-scroll-reveal>
         <h3 id="checkpoint-comparisons">Checkpoint Comparisons</h3>
         <p>In these archived rollout examples, the same start and goal are rerun with saved predictors from Rounds 1 and 3. Both Rope runs meet the success threshold. Both Granular runs finish above the 0.20 success threshold.</p>
+        <div class="animation-tools"><button type="button" data-animation-toggle hidden>Pause animations</button></div>
       </div>
       <div class="rollouts" data-scroll-reveal>
         <figure>
           <h4>Rope</h4>
           <div class="rollout-labels" aria-hidden="true"><span>Round 1</span><span>Goal</span><span>Round 3</span></div>
-          <img class="animation" src="./assets/rope-checkpoints-clean.webp" data-still="./assets/rope-checkpoints-clean-still.webp" width="688" height="224" loading="lazy"
-            alt="The Rope checkpoint comparison shows Round 1, the goal, and Round 3 from left to right.">
+          <video class="animation" src="./assets/rope-checkpoints-clean.mp4" poster="./assets/rope-checkpoints-clean-still.webp" width="688" height="224" muted playsinline loop preload="none"
+            role="img" aria-label="The Rope checkpoint comparison shows Round 1, the goal, and Round 3 from left to right."></video>
           <figcaption>Final Chamfer distance drops from 0.1932 to 0.0875.</figcaption>
         </figure>
         <figure>
           <h4>Granular</h4>
           <div class="rollout-labels" aria-hidden="true"><span>Round 1</span><span>Goal</span><span>Round 3</span></div>
-          <img class="animation" src="./assets/granular-checkpoints-clean.webp" data-still="./assets/granular-checkpoints-clean-still.webp" width="688" height="224" loading="lazy"
-            alt="The Granular checkpoint comparison shows Round 1, the goal, and Round 3 from left to right.">
+          <video class="animation" src="./assets/granular-checkpoints-clean.mp4" poster="./assets/granular-checkpoints-clean-still.webp" width="688" height="224" muted playsinline loop preload="none"
+            role="img" aria-label="The Granular checkpoint comparison shows Round 1, the goal, and Round 3 from left to right."></video>
           <figcaption>Final Chamfer distance drops from 0.2284 to 0.2100.</figcaption>
         </figure>
       </div>

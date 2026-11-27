@@ -1,19 +1,22 @@
-const buttons = [...document.querySelectorAll("[data-animation-toggle]")];
-const images = [...document.querySelectorAll(".animation")].map((image) => ({
-  image,
-  animation: image.getAttribute("src"),
-  still: image.dataset.still
-}));
 const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
-let paused = motionPreference.matches;
 
-function updateMotion() {
-  for (const { image, animation, still } of images) {
-    const source = paused ? still : animation;
-    if (image.getAttribute("src") !== source) image.src = source;
+for (const group of document.querySelectorAll("[data-animation-group]")) {
+  const button = group.querySelector("[data-animation-toggle]");
+  const videos = [...group.querySelectorAll("video.animation")];
+  if (!videos[0]?.canPlayType("video/mp4")) continue;
+  const visible = new Set();
+  let userPaused;
+
+  function isPaused() {
+    return userPaused ?? motionPreference.matches;
   }
-  for (const button of buttons) {
-    const label = paused ? "Play animations" : "Pause animations";
+
+  function updateButton() {
+    const paused = isPaused();
+    const hasProgress = videos.some((video) => video.currentTime > 0);
+    const action = paused ? (hasProgress ? "Resume" : "Play") : "Pause";
+    const label = `${action} animation${videos.length > 1 ? "s" : ""}`;
+
     if (button.classList.contains("opening-playback")) {
       button.setAttribute("aria-label", label);
       button.dataset.paused = String(paused);
@@ -21,20 +24,50 @@ function updateMotion() {
       button.textContent = label;
     }
   }
-}
 
-for (const button of buttons) {
+  function updateVideo(video) {
+    if (isPaused() || document.hidden || !visible.has(video)) {
+      if (!video.paused) video.pause();
+      return;
+    }
+
+    if (video.paused) {
+      video.play().catch((error) => {
+        if (error.name === "NotAllowedError" && !isPaused() && visible.has(video)) {
+          userPaused = true;
+          updateGroup();
+        }
+      });
+    }
+  }
+
+  function updateGroup() {
+    updateButton();
+    videos.forEach(updateVideo);
+  }
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      for (const { target, isIntersecting } of entries) {
+        if (isIntersecting) visible.add(target);
+        else visible.delete(target);
+        updateVideo(target);
+      }
+    }, { threshold: .01 });
+    videos.forEach((video) => observer.observe(video));
+  } else {
+    videos.forEach((video) => visible.add(video));
+  }
+
   button.addEventListener("click", () => {
-    paused = !paused;
-    updateMotion();
+    userPaused = !isPaused();
+    updateGroup();
   });
+  motionPreference.addEventListener("change", updateGroup);
+  document.addEventListener("visibilitychange", updateGroup);
   button.hidden = false;
+  updateGroup();
 }
-motionPreference.addEventListener("change", (event) => {
-  paused = event.matches;
-  updateMotion();
-});
-updateMotion();
 
 const openingMenu = document.querySelector(".opening-menu");
 for (const link of openingMenu.querySelectorAll("a")) {
