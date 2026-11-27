@@ -200,28 +200,28 @@ h4 { font-size: 1.3rem; }
 .abstract { max-width: 780px; margin-top: 88px; }
 .abstract p { margin-top: 1.15rem; color: var(--ink); font-size: clamp(1.07rem, 1.7vw, 1.45rem); line-height: 1.6; letter-spacing: -.025em; }
 .highlight-band { padding: 56px 0 85px; }
-.highlights { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 910px; }
+.highlights { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1000px; }
 .highlights:not([hidden]) + .highlights:not([hidden]) { margin-top: 2rem; }
-.highlight-planner { grid-column: 1 / -1; margin-bottom: .9rem; text-align: center; font-size: .9375rem; font-weight: 650; }
-.highlight { display: flex; flex-direction: column; align-items: center; padding: .65rem clamp(1.125rem, 2.25vw, 1.75rem); text-align: center; }
+.highlight-planner { grid-column: 1 / -1; margin-bottom: .9rem; text-align: center; font-size: 1.0625rem; font-weight: 650; }
+.highlight { display: flex; flex-direction: column; align-items: center; padding: .65rem clamp(1.125rem, 2vw, 1.75rem); text-align: center; }
 .highlight + .highlight { border-inline-start: 1px solid var(--line); }
-.highlight-label { font-size: .9375rem; font-weight: 650; line-height: 1.35; text-wrap: balance; }
-.highlight-description { max-width: 30ch; font-size: .875rem; line-height: 1.45; text-wrap: balance; }
+.highlight-label { font-size: 1.0625rem; font-weight: 650; line-height: 1.35; text-wrap: balance; }
+.highlight-description { font-size: .9375rem; line-height: 1.4; text-wrap: balance; }
 .highlight-methods { white-space: nowrap; }
 .highlight-values {
   display: flex;
   align-items: baseline;
-  gap: .24em;
+  gap: .2em;
   margin: .35rem 0 .5rem;
   color: #b74738;
-  font-size: clamp(1.375rem, 2.65vw, 1.8rem);
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
   font-weight: 650;
   line-height: 1.2;
   letter-spacing: -.045em;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
-.highlight-before { color: var(--ink); font-weight: 500; }
+.highlight-before { color: var(--ink); font-weight: 550; }
 .highlight-arrow { font-size: .75em; font-weight: 500; }
 .highlight:hover { text-decoration: none; }
 .highlight:hover .highlight-label { text-decoration: underline; }
@@ -423,7 +423,7 @@ h4 { font-size: 1.3rem; }
   .highlights { grid-template-columns: minmax(0, 1fr); max-width: 25rem; }
   .highlight { padding-block: 1rem; }
   .highlight + .highlight { border-inline-start: 0; border-block-start: 1px solid var(--line); }
-  .highlight-values { font-size: clamp(1.5rem, 6vw, 1.75rem); }
+  .highlight-values { font-size: clamp(1.625rem, 7.2vw, 2.05rem); }
   .section-heading { margin-bottom: 36px; }
   .section-heading p { font-size: 1rem; }
 }
