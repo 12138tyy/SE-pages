@@ -8,7 +8,7 @@
   <title>SE-JEPA | Self-Evolving Latent World Models</title>
   <link rel="stylesheet" href="./assets/fonts/InterVariable.css">
   <link rel="stylesheet" href="./assets/fonts/InterTight.css">
-  <link rel="stylesheet" href="./styles.css?v=30">
+  <link rel="stylesheet" href="./styles.css?v=31">
   <script defer src="./site.js?v=12"></script>
 </head>
 <body>
@@ -307,16 +307,18 @@
             <button type="button" data-animation-toggle hidden>Pause animation</button>
             <a href="./assets/architecture-method-poster.webp?v=6">Open full-size diagram</a>
           </figcaption>
-          <div class="animation-timeline" data-animation-timeline hidden>
-            <label class="visually-hidden" for="method-position">Architecture animation progress</label>
-            <input id="method-position" type="range" min="0" max="0" step="any" value="0" disabled>
-            <span data-animation-time aria-hidden="true">0:00 / 0:00</span>
+          <div class="method-player">
+            <video class="animation" poster="./assets/architecture-method-poster.webp?v=6" width="3840" height="2160" muted playsinline loop preload="metadata"
+              role="img" aria-label="SE-JEPA architecture animation showing predictor selection, fast adaptation during planning, and the validation and replay branches used to consolidate experience.">
+              <source src="./assets/architecture-method-4k.mp4?v=6" type='video/mp4; codecs="avc1.640033"'>
+              <source src="./assets/architecture-method.mp4?v=6" type="video/mp4">
+            </video>
+            <div class="animation-timeline" data-animation-timeline hidden>
+              <label class="visually-hidden" for="method-position">Architecture animation progress</label>
+              <input id="method-position" type="range" min="0" max="0" step="any" value="0" disabled>
+              <span data-animation-time aria-hidden="true">0:00 / 0:00</span>
+            </div>
           </div>
-          <video class="animation" poster="./assets/architecture-method-poster.webp?v=6" width="3840" height="2160" muted playsinline loop preload="metadata"
-            role="img" aria-label="SE-JEPA architecture animation showing predictor selection, fast adaptation during planning, and the validation and replay branches used to consolidate experience.">
-            <source src="./assets/architecture-method-4k.mp4?v=6" type='video/mp4; codecs="avc1.640033"'>
-            <source src="./assets/architecture-method.mp4?v=6" type="video/mp4">
-          </video>
         </figure>
         <div class="reading method-equations" data-scroll-reveal>
           <p><strong>Replay training.</strong> The slow predictor minimizes its next-embedding prediction error over the domain’s replay buffer. Here <i>x</i> is a short observation-and-action history, and <i>z</i><sup>+</sup> is the next observation embedding.</p>
