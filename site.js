@@ -298,26 +298,15 @@ function connectResultSummary() {
   const summary = document.getElementById("key-results");
   if (!summary) return;
 
-  const switcher = summary.querySelector(".highlight-switch");
-  const buttons = [...switcher.querySelectorAll("button[data-planner]")];
   const panels = [...summary.querySelectorAll("[data-summary-planner]")];
-  const rotation = switcher.querySelector("[data-summary-rotation]");
-  let active = panels.find(panel => !panel.hidden);
-  let playing = !motionPreference.matches;
+  let active = panels[0];
   let inView = !("IntersectionObserver" in window);
   let timer;
   let animation;
 
-  function show(panel) {
-    active = panel;
-    for (const option of buttons) {
-      option.setAttribute("aria-pressed", String(option.dataset.planner === panel.dataset.summaryPlanner));
-    }
-    for (const result of panels) result.hidden = result !== panel;
-  }
-
   function canRotate() {
-    return playing && inView && !document.hidden && !active.contains(document.activeElement);
+    return !motionPreference.matches && inView && !document.hidden
+      && !active.contains(document.activeElement);
   }
 
   function fade(panel, opacity, easing) {
@@ -329,15 +318,12 @@ function connectResultSummary() {
     if (!canRotate()) return;
 
     const next = panels[(panels.indexOf(active) + 1) % panels.length];
-    if (motionPreference.matches) {
-      show(next);
-    } else {
-      if (!await fade(active, [1, 0], "ease-in")) return;
-      show(next);
-      animation.cancel();
-      if (!await fade(active, [0, 1], "ease-out")) return;
-    }
-    restart();
+    if (!await fade(active, [1, 0], "ease-in")) return;
+    active.hidden = true;
+    next.hidden = false;
+    active = next;
+    animation.cancel();
+    if (await fade(active, [0, 1], "ease-out")) restart();
   }
 
   function restart() {
@@ -347,31 +333,16 @@ function connectResultSummary() {
     if (canRotate()) timer = window.setTimeout(advance, 3000);
   }
 
-  function updateRotationControl() {
-    rotation.textContent = playing ? "Pause" : "Play";
-    rotation.setAttribute("aria-label", playing
-      ? "Pause automatic results rotation" : "Play automatic results rotation");
+  function syncPanels() {
+    active = panels.find(panel => panel.contains(document.activeElement)) ?? active;
+    for (const panel of panels) panel.hidden = !motionPreference.matches && panel !== active;
+    restart();
   }
 
-  for (const button of buttons) {
-    button.addEventListener("click", () => {
-      show(panels.find(panel => panel.dataset.summaryPlanner === button.dataset.planner));
-      restart();
-    });
-  }
-  rotation.addEventListener("click", () => {
-    playing = !playing;
-    updateRotationControl();
-    restart();
-  });
   summary.addEventListener("focusin", restart);
-  summary.addEventListener("focusout", restart);
+  summary.addEventListener("focusout", () => queueMicrotask(restart));
   document.addEventListener("visibilitychange", restart);
-  motionPreference.addEventListener("change", ({ matches }) => {
-    if (matches) playing = false;
-    updateRotationControl();
-    restart();
-  });
+  motionPreference.addEventListener("change", syncPanels);
 
   if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver(([entry]) => {
@@ -381,9 +352,7 @@ function connectResultSummary() {
     observer.observe(summary);
   }
 
-  updateRotationControl();
-  switcher.hidden = false;
-  restart();
+  syncPanels();
 }
 
 connectResultSummary();
