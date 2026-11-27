@@ -377,6 +377,7 @@ h4 { font-size: 1.3rem; }
 }
 .highlight-switch button:hover { border-color: var(--ink); }
 .highlight-switch button[aria-pressed="true"] { border-color: var(--ink); color: var(--paper); background: var(--ink); }
+.highlight-switch [data-summary-rotation] { min-width: 4.5rem; margin-inline-start: .25rem; }
 .results-table { margin-top: 1.65rem; }
 .results-table figcaption { margin-bottom: .75rem; font-size: .9375rem; }
 .table-wrap { overflow-x: auto; overscroll-behavior-inline: contain; }

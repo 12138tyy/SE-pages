@@ -295,24 +295,95 @@ function connectCitation() {
 connectCitation();
 
 function connectResultSummary() {
-  const switcher = document.querySelector("#key-results .highlight-switch");
-  if (!switcher) return;
+  const summary = document.getElementById("key-results");
+  if (!summary) return;
 
-  const buttons = switcher.querySelectorAll("button[data-planner]");
-  const panels = document.querySelectorAll("#key-results [data-summary-planner]");
+  const switcher = summary.querySelector(".highlight-switch");
+  const buttons = [...switcher.querySelectorAll("button[data-planner]")];
+  const panels = [...summary.querySelectorAll("[data-summary-planner]")];
+  const rotation = switcher.querySelector("[data-summary-rotation]");
+  let active = panels.find(panel => !panel.hidden);
+  let playing = !motionPreference.matches;
+  let inView = !("IntersectionObserver" in window);
+  let timer;
+  let animation;
+
+  function show(panel) {
+    active = panel;
+    for (const option of buttons) {
+      option.setAttribute("aria-pressed", String(option.dataset.planner === panel.dataset.summaryPlanner));
+    }
+    for (const result of panels) result.hidden = result !== panel;
+  }
+
+  function canRotate() {
+    return playing && inView && !document.hidden && !active.contains(document.activeElement);
+  }
+
+  function fade(panel, opacity, easing) {
+    animation = panel.animate({ opacity }, { duration: 220, easing, fill: "both" });
+    return animation.finished.then(() => true, () => false);
+  }
+
+  async function advance() {
+    if (!canRotate()) return;
+
+    const next = panels[(panels.indexOf(active) + 1) % panels.length];
+    if (motionPreference.matches) {
+      show(next);
+    } else {
+      if (!await fade(active, [1, 0], "ease-in")) return;
+      show(next);
+      animation.cancel();
+      if (!await fade(active, [0, 1], "ease-out")) return;
+    }
+    restart();
+  }
+
+  function restart() {
+    window.clearTimeout(timer);
+    animation?.cancel();
+    animation = undefined;
+    if (canRotate()) timer = window.setTimeout(advance, 3000);
+  }
+
+  function updateRotationControl() {
+    rotation.textContent = playing ? "Pause" : "Play";
+    rotation.setAttribute("aria-label", playing
+      ? "Pause automatic results rotation" : "Play automatic results rotation");
+  }
 
   for (const button of buttons) {
     button.addEventListener("click", () => {
-      const planner = button.dataset.planner;
-      for (const option of buttons) {
-        option.setAttribute("aria-pressed", String(option === button));
-      }
-      for (const panel of panels) {
-        panel.hidden = panel.dataset.summaryPlanner !== planner;
-      }
+      show(panels.find(panel => panel.dataset.summaryPlanner === button.dataset.planner));
+      restart();
     });
   }
+  rotation.addEventListener("click", () => {
+    playing = !playing;
+    updateRotationControl();
+    restart();
+  });
+  summary.addEventListener("focusin", restart);
+  summary.addEventListener("focusout", restart);
+  document.addEventListener("visibilitychange", restart);
+  motionPreference.addEventListener("change", ({ matches }) => {
+    if (matches) playing = false;
+    updateRotationControl();
+    restart();
+  });
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.intersectionRatio >= 0.2;
+      restart();
+    }, { threshold: 0.2 });
+    observer.observe(summary);
+  }
+
+  updateRotationControl();
   switcher.hidden = false;
+  restart();
 }
 
 connectResultSummary();
