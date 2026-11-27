@@ -304,16 +304,18 @@ function connectPlanningResults() {
     for (const panel of panels) panel.hidden = panel.dataset.planningPanel !== planner;
   }
 
-  function panelForFragment(fragment) {
-    return document.getElementById(fragment.slice(1))?.closest("[data-planning-panel]");
+  function resultTarget(fragment) {
+    const target = document.getElementById(fragment.slice(1));
+    return target?.closest("[data-planning-panel], #cem-benchmarks") ? target : null;
   }
 
   function chooseFromFragment(fragment) {
-    const panel = panelForFragment(fragment);
-    if (!panel) return;
+    const target = resultTarget(fragment);
+    if (!target) return;
 
-    choose(panel.dataset.planningPanel);
-    const details = document.getElementById(fragment.slice(1)).closest("details");
+    const panel = target.closest("[data-planning-panel]");
+    if (panel) choose(panel.dataset.planningPanel);
+    const details = target.closest("details");
     if (details) details.open = true;
   }
 
@@ -322,7 +324,7 @@ function connectPlanningResults() {
     button.closest(".planning-switch").hidden = false;
   }
   for (const link of document.querySelectorAll('a[href^="#"]')) {
-    if (panelForFragment(link.hash)) link.addEventListener("click", () => chooseFromFragment(link.hash));
+    if (resultTarget(link.hash)) link.addEventListener("click", () => chooseFromFragment(link.hash));
   }
   window.addEventListener("hashchange", () => chooseFromFragment(location.hash));
 
