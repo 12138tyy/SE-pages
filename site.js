@@ -6,6 +6,107 @@ function animationTime(seconds) {
   return `${minutes}:${String(wholeSeconds % 60).padStart(2, "0")}`;
 }
 
+function connectRolloutCarousel(group, updateGroup) {
+  const track = group.querySelector("[data-rollout-set]");
+  const filter = group.querySelector("[data-rollout-filter]");
+  const paging = group.querySelector("[data-rollout-paging]");
+  if (!track || !filter || !paging) return null;
+
+  const slides = [...track.querySelectorAll("[data-task]")];
+  const videos = slides.map((slide) => slide.querySelector("video"));
+  const radios = [...filter.querySelectorAll("input")];
+  let selected = slides.findIndex((slide) => slide.dataset.task === filter.querySelector(":checked").value);
+  let active = selected;
+  let settleTimer;
+
+  function slideOffset(index) {
+    return slides[index].offsetLeft - slides[0].offsetLeft;
+  }
+
+  function setCarousel(enabled) {
+    track.toggleAttribute("data-carousel", enabled);
+    paging.hidden = !enabled;
+    track.tabIndex = enabled ? 0 : -1;
+    for (const video of videos) video.loop = !enabled;
+  }
+
+  function choose(index) {
+    active = index;
+    selected = index;
+    radios.find((radio) => radio.value === slides[index].dataset.task).checked = true;
+    updateGroup();
+  }
+
+  function settle() {
+    if (!track.hasAttribute("data-carousel")) return;
+    const nearest = slides.reduce((best, _, index) => {
+      const distance = Math.abs(slideOffset(index) - track.scrollLeft);
+      return distance < Math.abs(slideOffset(best) - track.scrollLeft) ? index : best;
+    }, 0);
+    choose(nearest);
+  }
+
+  function waitForSettle() {
+    if (active !== -1) {
+      active = -1;
+      updateGroup();
+    }
+    window.clearTimeout(settleTimer);
+    settleTimer = window.setTimeout(settle, 140);
+  }
+
+  function scrollToSlide(index) {
+    const smooth = track.hasAttribute("data-carousel") && !motionPreference.matches
+      && Math.abs(selected - index) === 1;
+    setCarousel(true);
+    selected = index;
+    const left = slideOffset(index);
+    track.scrollTo({ left, behavior: smooth ? "smooth" : "auto" });
+    if (Math.abs(track.scrollLeft - left) < 1) {
+      window.clearTimeout(settleTimer);
+      choose(index);
+    } else {
+      waitForSettle();
+    }
+  }
+
+  function move(direction) {
+    scrollToSlide((selected + direction + slides.length) % slides.length);
+  }
+
+  filter.addEventListener("change", (event) => {
+    const index = slides.findIndex((slide) => slide.dataset.task === event.target.value);
+    if (index !== -1) {
+      scrollToSlide(index);
+    } else {
+      window.clearTimeout(settleTimer);
+      setCarousel(false);
+      selected = active = -1;
+      updateGroup();
+    }
+  });
+
+  paging.querySelector("[data-rollout-prev]").addEventListener("click", () => move(-1));
+  paging.querySelector("[data-rollout-next]").addEventListener("click", () => move(1));
+  track.addEventListener("scroll", () => {
+    if (!track.hasAttribute("data-carousel")) return;
+    if (active === -1 || Math.abs(track.scrollLeft - slideOffset(active)) >= 1) waitForSettle();
+  }, { passive: true });
+
+  setCarousel(selected !== -1);
+  if (selected > 0) track.scrollLeft = slideOffset(selected);
+  filter.hidden = false;
+
+  return {
+    canPlay(video) {
+      return !track.hasAttribute("data-carousel") || videos[active] === video;
+    },
+    advance(video) {
+      if (track.hasAttribute("data-carousel") && videos[active] === video) move(1);
+    }
+  };
+}
+
 for (const group of document.querySelectorAll("[data-animation-group]")) {
   const button = group.querySelector("[data-animation-toggle]");
   const videos = [...group.querySelectorAll("video.animation")];
@@ -34,7 +135,8 @@ for (const group of document.querySelectorAll("[data-animation-group]")) {
   }
 
   function updateVideo(video) {
-    if (isPaused() || scrubPointer !== undefined || document.hidden || !visible.has(video)) {
+    if (isPaused() || scrubPointer !== undefined || document.hidden || !visible.has(video)
+      || (carousel && !carousel.canPlay(video))) {
       if (!video.paused) video.pause();
       return;
     }
@@ -52,6 +154,15 @@ for (const group of document.querySelectorAll("[data-animation-group]")) {
   function updateGroup() {
     updateButton();
     videos.forEach(updateVideo);
+  }
+
+  const carousel = connectRolloutCarousel(group, updateGroup);
+  if (carousel) {
+    for (const video of videos) {
+      video.addEventListener("ended", () => {
+        if (!isPaused() && !document.hidden && visible.has(video)) carousel.advance(video);
+      });
+    }
   }
 
   if (timeline) {
@@ -139,24 +250,6 @@ openingMenu.addEventListener("keydown", (event) => {
     openingMenu.querySelector("summary").focus();
   }
 });
-
-const rolloutFilter = document.querySelector("[data-rollout-filter]");
-const rolloutSet = document.querySelector("[data-rollout-set]");
-
-if (rolloutFilter && rolloutSet) {
-  const rollouts = rolloutSet.querySelectorAll("[data-task]");
-
-  function showTask(task) {
-    rolloutSet.toggleAttribute("data-filtered", task !== "all");
-    for (const rollout of rollouts) {
-      rollout.hidden = task !== "all" && rollout.dataset.task !== task;
-    }
-  }
-
-  rolloutFilter.addEventListener("change", (event) => showTask(event.target.value));
-  showTask(rolloutFilter.querySelector(":checked").value);
-  rolloutFilter.hidden = false;
-}
 
 function enableScrollReveal() {
   if (motionPreference.matches || !("IntersectionObserver" in window)) return;
