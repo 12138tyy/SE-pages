@@ -8,7 +8,7 @@
   <title>SE-JEPA | Self-Evolving Latent World Models</title>
   <link rel="stylesheet" href="./assets/fonts/InterVariable.css">
   <link rel="stylesheet" href="./assets/fonts/InterTight.css">
-  <link rel="stylesheet" href="./styles.css?v=34">
+  <link rel="stylesheet" href="./styles.css?v=35">
   <script defer src="./site.js?v=16"></script>
 </head>
 <body>
@@ -370,179 +370,109 @@
           <h2 id="planning-title">Planning with SE-JEPA</h2>
           <p>SE-JEPA encodes the current observation and goal, predicts the effects of candidate action sequences in latent space, and executes the first block of the selected sequence. It replans after observing the result. We report pushing results for gradient descent (GD) and the cross-entropy method (CEM).</p>
           <h3 id="planning-results-title">Planning Results</h3>
-          <p>The Shape Shift and Visual Shift tables compare CEM and GD on the same paired held-out goals after five learning rounds. During testing, memory writes are disabled and retrieval and fast adaptation remain enabled.</p>
+          <p>The held-out Shape Shift and Visual Shift results use the same paired goals for CEM and GD after five learning rounds. During testing, memory writes are disabled and retrieval and fast adaptation remain enabled.</p>
         </div>
 
         <div class="planning-results" data-planning-results data-scroll-reveal>
-          <div class="planning-switch" role="group" aria-label="Held-out and pushing benchmark planner" hidden>
+          <div class="planning-switch" role="group" aria-label="Planning results planner" hidden>
             <button type="button" data-planner="cem" aria-controls="planning-cem" aria-pressed="true">CEM</button>
             <button type="button" data-planner="gd" aria-controls="planning-gd" aria-pressed="false">GD</button>
           </div>
           <div id="planning-cem" data-planning-panel="cem">
             <figure class="results-table">
-              <figcaption id="cem-held-out-caption"><strong>Goal-conditioned planning with CEM on held-out goals.</strong> Paper Table VI.</figcaption>
+              <figcaption id="cem-held-out-caption"><strong>CEM planning results</strong></figcaption>
               <div class="table-wrap" tabindex="0" role="region" aria-labelledby="cem-held-out-caption">
-                <table class="held-out-table" aria-labelledby="cem-held-out-caption">
-                  <colgroup span="1"></colgroup><colgroup span="3"></colgroup><colgroup span="3"></colgroup>
-                  <thead>
-                    <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="3">Shape Shift</th><th scope="colgroup" colspan="3">Visual Shift</th></tr>
-                    <tr><th scope="col">All-7 (%)</th><th scope="col">Unseen (%)</th><th scope="col">Replans ↓</th><th scope="col">All-7 (%)</th><th scope="col">Shift-6 (%)</th><th scope="col">Replans ↓</th></tr>
-                  </thead>
-                  <tbody>
-                    <tr><th scope="row">Frozen</th><td>43.81</td><td>36.22</td><td>21.08</td><td>50.86</td><td>48.33</td><td>19.56</td></tr>
-                    <tr><th scope="row">AdaJEPA</th><td>70.38</td><td>54.44</td><td>16.02</td><td>62.95</td><td>60.22</td><td>17.87</td></tr>
-                    <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>79.08</td><td>69.85</td><td>13.53</td><td>77.05</td><td>76.11</td><td>14.15</td></tr>
-                  </tbody>
+                <table class="planning-table" aria-labelledby="cem-held-out-caption">
+                <thead><tr><th scope="col">Task / metric</th><th scope="col">Frozen</th><th scope="col">AdaJEPA</th><th scope="col">SE-JEPA</th><th scope="col">DINO-WM</th><th scope="col">LeWM</th><th scope="col">DDP-WM</th><th scope="col">DreamerV3</th><th scope="col">IRIS</th><th scope="col">R3M</th><th scope="col">DINO CLS</th></tr></thead>
+                <tbody id="cem-conditions">
+                  <tr class="planning-group"><th scope="rowgroup" colspan="11" id="cem-shapes-caption"><span id="cem-conditions-title">Shape Shift · held-out <small>Tables VI–VII</small></span></th></tr>
+                  <tr class="planning-summary-row"><th scope="row">All 7 shapes (%)</th><td>43.81</td><td>70.38</td><td>79.08</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr class="planning-summary-row"><th scope="row">Unseen shapes (%)</th><td>36.22</td><td>54.44</td><td>69.85</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr class="planning-summary-row"><th scope="row">Mean replans ↓</th><td>21.08</td><td>16.02</td><td>13.53</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr><th scope="row">I (%)</th><td>32.7</td><td>49.3</td><td>72.7</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr><th scope="row">L (%)</th><td>52.7</td><td>82.0</td><td>84.2</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr><th scope="row">Square (%)</th><td>23.3</td><td>44.7</td><td>58.4</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr><th scope="row">Z (%)</th><td>41.3</td><td>82.0</td><td>86.2</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr><th scope="row">Small T (%)</th><td>52.7</td><td>69.3</td><td>78.4</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr><th scope="row">Plus (%)</th><td>43.3</td><td>79.3</td><td>85.6</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr><th scope="row">T (%)</th><td>60.7</td><td>86.0</td><td>88.0</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                </tbody>
+                <tbody>
+                  <tr class="planning-group"><th scope="rowgroup" colspan="11" id="cem-appearance-caption"><span>Visual Shift · held-out <small>Tables VI, VIII</small></span></th></tr>
+                  <tr class="planning-summary-row"><th scope="row">All 7 conditions (%)</th><td>50.86</td><td>62.95</td><td>77.05</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr class="planning-summary-row"><th scope="row">Shift-6 (%)</th><td>48.33</td><td>60.22</td><td>76.11</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr class="planning-summary-row"><th scope="row">Mean replans ↓</th><td>19.56</td><td>17.87</td><td>14.15</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr><th scope="row">Original (%)</th><td>66.0</td><td>79.3</td><td>82.7</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr><th scope="row">Blur (%)</th><td>56.0</td><td>78.0</td><td>86.4</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr><th scope="row">Noise (%)</th><td>62.7</td><td>76.7</td><td>86.7</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr><th scope="row">Dark (%)</th><td>70.7</td><td>80.0</td><td>88.0</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr><th scope="row">Red agent (%)</th><td>50.0</td><td>71.3</td><td>79.6</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr><th scope="row">Red object (%)</th><td>14.0</td><td>14.0</td><td>47.1</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                  <tr><th scope="row">Red goal (%)</th><td>36.7</td><td>41.3</td><td>68.9</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td><td class="planning-unreported">—</td></tr>
+                </tbody>
+                <tbody id="cem-benchmarks">
+                  <tr class="planning-group" id="planning-table-caption"><th scope="rowgroup" colspan="11" id="cem-benchmarks-title"><span>Pushing benchmark <small>Table 1</small></span></th></tr>
+                  <tr><th scope="row">Shape Shift · all 7 (%)</th><td>43.8</td><td>70.4</td><td>80.4</td><td>62.0</td><td>64.0</td><td>57.7</td><td>7.1</td><td>2.9</td><td>18.9</td><td>14.9</td></tr>
+                  <tr><th scope="row">Shape Shift · unseen (%)</th><td>36.2</td><td>54.4</td><td>73.1</td><td>46.0</td><td>50.0</td><td>43.3</td><td>5.3</td><td>2.7</td><td>18.0</td><td>10.0</td></tr>
+                  <tr><th scope="row">Shape Shift · replans ↓</th><td>21.08</td><td>16.02</td><td>12.99</td><td>16.15</td><td>16.28</td><td>17.59</td><td>28.36</td><td>29.37</td><td>25.49</td><td>26.77</td></tr>
+                  <tr><th scope="row">Visual Shift · all 6 (%)</th><td>48.3</td><td>60.2</td><td>76.1</td><td>33.0</td><td>40.3</td><td>52.7</td><td>5.7</td><td>6.0</td><td>21.7</td><td>34.7</td></tr>
+                  <tr><th scope="row">Visual Shift · Color-3 (%)</th><td>33.6</td><td>42.2</td><td>65.2</td><td>37.3</td><td>16.0</td><td>57.3</td><td>0.0</td><td>6.7</td><td>27.3</td><td>35.3</td></tr>
+                  <tr><th scope="row">Visual Shift · replans ↓</th><td>20.10</td><td>18.46</td><td>14.46</td><td>22.05</td><td>21.45</td><td>18.39</td><td>28.91</td><td>28.85</td><td>25.00</td><td>22.38</td></tr>
+                </tbody>
+                <tbody id="robot-arm-benchmarks">
+                  <tr class="planning-group" id="robot-arm-table-caption"><th scope="rowgroup" colspan="11" id="robot-arm-benchmarks-title"><span>Robot arm benchmark <small>Tables 1, IX</small></span></th></tr>
+                  <tr><th scope="row">Rope CD ↓</th><td>0.491</td><td>0.629 ± 0.096</td><td>0.252 ± 0.045</td><td>0.491 ± 0.059</td><td>0.786 ± 0.112</td><td>0.677 ± 0.086</td><td>2.49</td><td>1.11</td><td>1.13</td><td>0.84</td></tr>
+                  <tr><th scope="row">Granular CD ↓</th><td>0.301</td><td>0.304 ± 0.019</td><td>0.220 ± 0.012</td><td>0.301 ± 0.020</td><td>0.322 ± 0.018</td><td>0.259 ± 0.012</td><td>1.05</td><td>0.37</td><td>0.95</td><td>0.79</td></tr>
+                </tbody>
                 </table>
               </div>
             </figure>
             <div class="reading">
-              <p class="table-note">Unseen averages the I, square, and small T shapes. Shift-6 excludes the original appearance. Visual Shift replans are averaged over all seven conditions.</p>
+              <p class="table-note">In the held-out results, unseen averages I, square, and small T. Shift-6 excludes the original appearance. Visual Shift replans average all seven conditions.</p>
+              <p class="table-note">In Table 1, Color-3 covers the three recolorings, and the SE-JEPA Shape Shift results come from the fifth online round. “Frozen” is named “Frozen (pretrained)” in Table 1. An unsuccessful episode counts as 30 replans. A dash indicates an unreported value.</p>
+              <p class="table-note">CD is the mean final Chamfer distance to the goal. Where shown, ± is the standard error over 50 goals per dataset. DreamerV3, IRIS, R3M, and DINO CLS use published results on 10 goals per dataset.</p>
             </div>
-            <section class="planning-breakdown" id="cem-conditions" aria-labelledby="cem-conditions-title">
-              <h4 id="cem-conditions-title">CEM results by condition</h4>
-              <figure class="results-table">
-                <figcaption id="cem-shapes-caption"><strong>CEM Shape Shift success rate by object shape (%).</strong> Paper Table VII.</figcaption>
-                <div class="table-wrap" tabindex="0" role="region" aria-labelledby="cem-shapes-caption">
-                  <table class="wide-table" aria-labelledby="cem-shapes-caption">
-                    <thead><tr><th scope="col">Method</th><th scope="col">I</th><th scope="col">L</th><th scope="col">Square</th><th scope="col">Z</th><th scope="col">Small T</th><th scope="col">Plus</th><th scope="col">T</th><th scope="col">All-7</th></tr></thead>
-                    <tbody>
-                      <tr><th scope="row">Frozen</th><td>32.7</td><td>52.7</td><td>23.3</td><td>41.3</td><td>52.7</td><td>43.3</td><td>60.7</td><td>43.8</td></tr>
-                      <tr><th scope="row">AdaJEPA</th><td>49.3</td><td>82.0</td><td>44.7</td><td>82.0</td><td>69.3</td><td>79.3</td><td>86.0</td><td>70.4</td></tr>
-                      <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>72.7</td><td>84.2</td><td>58.4</td><td>86.2</td><td>78.4</td><td>85.6</td><td>88.0</td><td>79.1</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-              </figure>
-              <figure class="results-table">
-                <figcaption id="cem-appearance-caption"><strong>CEM Visual Shift success rate by appearance (%).</strong> Paper Table VIII.</figcaption>
-                <div class="table-wrap" tabindex="0" role="region" aria-labelledby="cem-appearance-caption">
-                  <table class="wide-table" aria-labelledby="cem-appearance-caption">
-                    <thead><tr><th scope="col">Method</th><th scope="col">Original</th><th scope="col">Blur</th><th scope="col">Noise</th><th scope="col">Dark</th><th scope="col">Red agent</th><th scope="col">Red object</th><th scope="col">Red goal</th><th scope="col">All-7</th><th scope="col">Shift-6</th></tr></thead>
-                    <tbody>
-                      <tr><th scope="row">Frozen</th><td>66.0</td><td>56.0</td><td>62.7</td><td>70.7</td><td>50.0</td><td>14.0</td><td>36.7</td><td>50.9</td><td>48.3</td></tr>
-                      <tr><th scope="row">AdaJEPA</th><td>79.3</td><td>78.0</td><td>76.7</td><td>80.0</td><td>71.3</td><td>14.0</td><td>41.3</td><td>63.0</td><td>60.2</td></tr>
-                      <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>82.7</td><td>86.4</td><td>86.7</td><td>88.0</td><td>79.6</td><td>47.1</td><td>68.9</td><td>77.0</td><td>76.1</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-              </figure>
-            </section>
-            <section class="planning-breakdown" id="cem-benchmarks" aria-labelledby="cem-benchmarks-title">
-              <h4 id="cem-benchmarks-title">Additional CEM pushing benchmarks</h4>
-              <div class="reading">
-                <p>This benchmark covers seven shapes and six visual shifts. Color-3 contains the three recoloring conditions. The Shape Shift values for SE-JEPA come from the fifth online round.</p>
-              </div>
-              <figure class="results-table">
-                <figcaption id="planning-table-caption"><strong>CEM benchmark comparison for Shape Shift and Visual Shift.</strong> Paper Table 1.</figcaption>
-                <div class="table-wrap" tabindex="0" role="region" aria-labelledby="planning-table-caption">
-                  <table class="wide-table" aria-labelledby="planning-table-caption">
-                    <colgroup span="1"></colgroup><colgroup span="3"></colgroup><colgroup span="3"></colgroup>
-                    <thead>
-                      <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="3">Shape Shift</th><th scope="colgroup" colspan="3">Visual Shift</th></tr>
-                      <tr><th scope="col">All-7 (%)</th><th scope="col">Unseen (%)</th><th scope="col">Replans ↓</th><th scope="col">All-6 (%)</th><th scope="col">Color-3 (%)</th><th scope="col">Replans ↓</th></tr>
-                    </thead>
-                    <tbody>
-                      <tr><th scope="row">DreamerV3</th><td>7.1</td><td>5.3</td><td>28.36</td><td>5.7</td><td>0.0</td><td>28.91</td></tr>
-                      <tr><th scope="row">IRIS</th><td>2.9</td><td>2.7</td><td>29.37</td><td>6.0</td><td>6.7</td><td>28.85</td></tr>
-                      <tr><th scope="row">R3M</th><td>18.9</td><td>18.0</td><td>25.49</td><td>21.7</td><td>27.3</td><td>25.00</td></tr>
-                      <tr><th scope="row">DINO CLS</th><td>14.9</td><td>10.0</td><td>26.77</td><td>34.7</td><td>35.3</td><td>22.38</td></tr>
-                      <tr><th scope="row">DINO-WM</th><td>62.0</td><td>46.0</td><td>16.15</td><td>33.0</td><td>37.3</td><td>22.05</td></tr>
-                      <tr><th scope="row">LeWM</th><td>64.0</td><td>50.0</td><td>16.28</td><td>40.3</td><td>16.0</td><td>21.45</td></tr>
-                      <tr><th scope="row">DDP-WM</th><td>57.7</td><td>43.3</td><td>17.59</td><td>52.7</td><td>57.3</td><td>18.39</td></tr>
-                      <tr><th scope="row">Frozen (pretrained)</th><td>43.8</td><td>36.2</td><td>21.08</td><td>48.3</td><td>33.6</td><td>20.10</td></tr>
-                      <tr><th scope="row">AdaJEPA</th><td>70.4</td><td>54.4</td><td>16.02</td><td>60.2</td><td>42.2</td><td>18.46</td></tr>
-                      <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>80.4</td><td>73.1</td><td>12.99</td><td>76.1</td><td>65.2</td><td>14.46</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-              </figure>
-              <div class="reading">
-                <p class="table-note">Unsuccessful episodes count as 30 replans when computing the average.</p>
-              </div>
-            </section>
           </div>
           <div id="planning-gd" data-planning-panel="gd">
             <figure class="results-table">
-              <figcaption id="gd-planning-table-caption"><strong>Goal-conditioned planning with GD on held-out goals.</strong> Paper Table VI.</figcaption>
+              <figcaption id="gd-planning-table-caption"><strong>GD planning results</strong></figcaption>
               <div class="table-wrap" tabindex="0" role="region" aria-labelledby="gd-planning-table-caption">
-                <table class="held-out-table" aria-labelledby="gd-planning-table-caption">
-                  <colgroup span="1"></colgroup><colgroup span="3"></colgroup><colgroup span="3"></colgroup>
-                  <thead>
-                    <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="3">Shape Shift</th><th scope="colgroup" colspan="3">Visual Shift</th></tr>
-                    <tr><th scope="col">All-7 (%)</th><th scope="col">Unseen (%)</th><th scope="col">Replans ↓</th><th scope="col">All-7 (%)</th><th scope="col">Shift-6 (%)</th><th scope="col">Replans ↓</th></tr>
-                  </thead>
-                  <tbody>
-                    <tr><th scope="row">Frozen</th><td>42.48</td><td>32.44</td><td>20.02</td><td>44.10</td><td>41.56</td><td>19.94</td></tr>
-                    <tr><th scope="row">AdaJEPA</th><td>72.19</td><td>55.33</td><td>14.52</td><td>58.67</td><td>54.89</td><td>17.96</td></tr>
-                    <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>81.59</td><td>72.44</td><td>11.30</td><td>75.68</td><td>73.63</td><td>13.21</td></tr>
-                  </tbody>
+                <table class="planning-table" aria-labelledby="gd-planning-table-caption">
+                <thead><tr><th scope="col">Task / metric</th><th scope="col">Frozen</th><th scope="col">AdaJEPA</th><th scope="col">SE-JEPA</th></tr></thead>
+                <tbody id="gd-conditions">
+                  <tr class="planning-group"><th scope="rowgroup" colspan="4" id="gd-shapes-caption"><span id="gd-conditions-title">Shape Shift · held-out <small>Tables VI–VII</small></span></th></tr>
+                  <tr class="planning-summary-row"><th scope="row">All 7 shapes (%)</th><td>42.48</td><td>72.19</td><td>81.59</td></tr>
+                  <tr class="planning-summary-row"><th scope="row">Unseen shapes (%)</th><td>32.44</td><td>55.33</td><td>72.44</td></tr>
+                  <tr class="planning-summary-row"><th scope="row">Mean replans ↓</th><td>20.02</td><td>14.52</td><td>11.30</td></tr>
+                  <tr><th scope="row">I (%)</th><td>24.0</td><td>44.7</td><td>77.6</td></tr>
+                  <tr><th scope="row">L (%)</th><td>52.7</td><td>90.0</td><td>88.4</td></tr>
+                  <tr><th scope="row">Square (%)</th><td>28.0</td><td>46.7</td><td>61.1</td></tr>
+                  <tr><th scope="row">Z (%)</th><td>40.0</td><td>82.0</td><td>88.0</td></tr>
+                  <tr><th scope="row">Small T (%)</th><td>45.3</td><td>74.7</td><td>78.7</td></tr>
+                  <tr><th scope="row">Plus (%)</th><td>48.7</td><td>82.0</td><td>87.6</td></tr>
+                  <tr><th scope="row">T (%)</th><td>58.7</td><td>85.3</td><td>89.8</td></tr>
+                </tbody>
+                <tbody>
+                  <tr class="planning-group"><th scope="rowgroup" colspan="4" id="gd-appearance-caption"><span>Visual Shift · held-out <small>Tables VI, VIII</small></span></th></tr>
+                  <tr class="planning-summary-row"><th scope="row">All 7 conditions (%)</th><td>44.10</td><td>58.67</td><td>75.68</td></tr>
+                  <tr class="planning-summary-row"><th scope="row">Shift-6 (%)</th><td>41.56</td><td>54.89</td><td>73.63</td></tr>
+                  <tr class="planning-summary-row"><th scope="row">Mean replans ↓</th><td>19.94</td><td>17.96</td><td>13.21</td></tr>
+                  <tr><th scope="row">Original (%)</th><td>59.3</td><td>81.3</td><td>88.0</td></tr>
+                  <tr><th scope="row">Blur (%)</th><td>48.7</td><td>77.3</td><td>88.7</td></tr>
+                  <tr><th scope="row">Noise (%)</th><td>55.3</td><td>73.3</td><td>84.9</td></tr>
+                  <tr><th scope="row">Dark (%)</th><td>58.7</td><td>73.3</td><td>87.3</td></tr>
+                  <tr><th scope="row">Red agent (%)</th><td>50.7</td><td>58.0</td><td>74.7</td></tr>
+                  <tr><th scope="row">Red object (%)</th><td>6.7</td><td>10.7</td><td>44.4</td></tr>
+                  <tr><th scope="row">Red goal (%)</th><td>29.3</td><td>36.7</td><td>61.8</td></tr>
+                </tbody>
                 </table>
               </div>
             </figure>
             <div class="reading">
-              <p class="table-note">Unseen averages the I, square, and small T shapes. Shift-6 excludes the original appearance. Visual Shift replans are averaged over all seven conditions.</p>
+              <p class="table-note">In the held-out results, unseen averages I, square, and small T. Shift-6 excludes the original appearance. Visual Shift replans average all seven conditions.</p>
             </div>
-            <section class="planning-breakdown" id="gd-conditions" aria-labelledby="gd-conditions-title">
-              <h4 id="gd-conditions-title">GD results by condition</h4>
-              <figure class="results-table">
-                <figcaption id="gd-shapes-caption"><strong>GD Shape Shift success rate by object shape (%).</strong> Paper Table VII.</figcaption>
-                <div class="table-wrap" tabindex="0" role="region" aria-labelledby="gd-shapes-caption">
-                  <table class="wide-table" aria-labelledby="gd-shapes-caption">
-                    <thead><tr><th scope="col">Method</th><th scope="col">I</th><th scope="col">L</th><th scope="col">Square</th><th scope="col">Z</th><th scope="col">Small T</th><th scope="col">Plus</th><th scope="col">T</th><th scope="col">All-7</th></tr></thead>
-                    <tbody>
-                      <tr><th scope="row">Frozen</th><td>24.0</td><td>52.7</td><td>28.0</td><td>40.0</td><td>45.3</td><td>48.7</td><td>58.7</td><td>42.5</td></tr>
-                      <tr><th scope="row">AdaJEPA</th><td>44.7</td><td>90.0</td><td>46.7</td><td>82.0</td><td>74.7</td><td>82.0</td><td>85.3</td><td>72.2</td></tr>
-                      <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>77.6</td><td>88.4</td><td>61.1</td><td>88.0</td><td>78.7</td><td>87.6</td><td>89.8</td><td>81.6</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-              </figure>
-              <figure class="results-table">
-                <figcaption id="gd-appearance-caption"><strong>GD Visual Shift success rate by appearance (%).</strong> Paper Table VIII.</figcaption>
-                <div class="table-wrap" tabindex="0" role="region" aria-labelledby="gd-appearance-caption">
-                  <table class="wide-table" aria-labelledby="gd-appearance-caption">
-                    <thead><tr><th scope="col">Method</th><th scope="col">Original</th><th scope="col">Blur</th><th scope="col">Noise</th><th scope="col">Dark</th><th scope="col">Red agent</th><th scope="col">Red object</th><th scope="col">Red goal</th><th scope="col">All-7</th><th scope="col">Shift-6</th></tr></thead>
-                    <tbody>
-                      <tr><th scope="row">Frozen</th><td>59.3</td><td>48.7</td><td>55.3</td><td>58.7</td><td>50.7</td><td>6.7</td><td>29.3</td><td>44.1</td><td>41.6</td></tr>
-                      <tr><th scope="row">AdaJEPA</th><td>81.3</td><td>77.3</td><td>73.3</td><td>73.3</td><td>58.0</td><td>10.7</td><td>36.7</td><td>58.7</td><td>54.9</td></tr>
-                      <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>88.0</td><td>88.7</td><td>84.9</td><td>87.3</td><td>74.7</td><td>44.4</td><td>61.8</td><td>75.7</td><td>73.6</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-              </figure>
-            </section>
           </div>
         </div>
-        <section class="planning-breakdown" id="robot-arm-benchmarks" aria-labelledby="robot-arm-benchmarks-title" data-scroll-reveal>
-          <h4 id="robot-arm-benchmarks-title">Robot Arm Planning</h4>
-          <div class="reading">
-            <p>In these CEM benchmarks, a simulated robot arm pushes rope or granular material toward a target configuration. The metric is final Chamfer distance (CD) to the goal.</p>
-          </div>
-          <figure class="results-table">
-            <figcaption id="robot-arm-table-caption"><strong>Rope and Granular results with CEM.</strong> Paper Tables 1 and IX.</figcaption>
-            <div class="table-wrap" tabindex="0" role="region" aria-labelledby="robot-arm-table-caption">
-              <table aria-labelledby="robot-arm-table-caption">
-                <thead><tr><th scope="col">Method</th><th scope="col">Rope CD ↓</th><th scope="col">Granular CD ↓</th></tr></thead>
-                <tbody>
-                  <tr><th scope="row">DreamerV3</th><td>2.49</td><td>1.05</td></tr>
-                  <tr><th scope="row">IRIS</th><td>1.11</td><td>0.37</td></tr>
-                  <tr><th scope="row">R3M</th><td>1.13</td><td>0.95</td></tr>
-                  <tr><th scope="row">DINO CLS</th><td>0.84</td><td>0.79</td></tr>
-                  <tr><th scope="row">DINO-WM</th><td>0.491 ± 0.059</td><td>0.301 ± 0.020</td></tr>
-                  <tr><th scope="row">LeWM</th><td>0.786 ± 0.112</td><td>0.322 ± 0.018</td></tr>
-                  <tr><th scope="row">DDP-WM</th><td>0.677 ± 0.086</td><td>0.259 ± 0.012</td></tr>
-                  <tr><th scope="row">Frozen (pretrained)</th><td>0.491</td><td>0.301</td></tr>
-                  <tr><th scope="row">AdaJEPA</th><td>0.629 ± 0.096</td><td>0.304 ± 0.019</td></tr>
-                  <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>0.252 ± 0.045</td><td>0.220 ± 0.012</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </figure>
-          <div class="reading">
-            <p class="table-note">Values are means. Where shown, ± indicates the standard error over 50 goals per dataset. DreamerV3, IRIS, R3M, and DINO CLS use published results over 10 goals per dataset.</p>
-          </div>
-        </section>
         <div class="reading" data-scroll-reveal>
           <h3 id="held-out">Held-Out Planning</h3>
           <p>On goals excluded from learning, the paper evaluates SE-JEPA with memory writes disabled and retrieval and fast adaptation enabled. Success gains over AdaJEPA are 17.11 percentage points (GD) and 15.41 (CEM) on unseen shapes, and 18.74 (GD) and 15.89 (CEM) across six visual shifts.</p>
