@@ -8,8 +8,8 @@
   <title>SE-JEPA | Self-Evolving Latent World Models</title>
   <link rel="stylesheet" href="./assets/fonts/InterVariable.css">
   <link rel="stylesheet" href="./assets/fonts/InterTight.css">
-  <link rel="stylesheet" href="./styles.css?v=29">
-  <script defer src="./site.js?v=11"></script>
+  <link rel="stylesheet" href="./styles.css?v=30">
+  <script defer src="./site.js?v=12"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -81,28 +81,33 @@
             </div>
             <button class="opening-playback" type="button" data-animation-toggle aria-label="Pause animations" hidden></button>
           </figcaption>
+          <video class="animation opening-strip" poster="./assets/teaser-4k.webp" width="3840" height="942" muted playsinline loop preload="none"
+            role="img" aria-label="SE-JEPA in four simulation environments: PushT, PushObj, Rope, and Granular.">
+            <source src="./assets/teaser-4k.mp4" type='video/mp4; codecs="avc1.640033"'>
+            <source src="./assets/teaser.mp4" type="video/mp4">
+          </video>
           <ul class="opening-scenes" role="list">
             <li class="opening-scene scene-pusht">
               <div class="opening-scene-image">
-                <video class="animation" src="./assets/teaser.mp4" poster="./assets/teaser.webp" width="914" height="224" muted playsinline loop preload="none" role="img" aria-label="A red T-shaped block is pushed toward its target."></video>
+                <video class="animation" src="./assets/teaser.mp4" poster="./assets/teaser-4k.webp" width="914" height="224" muted playsinline loop preload="none" role="img" aria-label="A red T-shaped block is pushed toward its target."></video>
               </div>
               <span>PushT</span>
             </li>
             <li class="opening-scene scene-pushobj">
               <div class="opening-scene-image">
-                <video class="animation" src="./assets/teaser.mp4" poster="./assets/teaser.webp" width="914" height="224" muted playsinline loop preload="none" role="img" aria-label="A differently shaped object is pushed toward its target."></video>
+                <video class="animation" src="./assets/teaser.mp4" poster="./assets/teaser-4k.webp" width="914" height="224" muted playsinline loop preload="none" role="img" aria-label="A differently shaped object is pushed toward its target."></video>
               </div>
               <span>PushObj</span>
             </li>
             <li class="opening-scene scene-rope">
               <div class="opening-scene-image">
-                <video class="animation" src="./assets/teaser.mp4" poster="./assets/teaser.webp" width="914" height="224" muted playsinline loop preload="none" role="img" aria-label="A robot arm rearranges a rope on a tabletop."></video>
+                <video class="animation" src="./assets/teaser.mp4" poster="./assets/teaser-4k.webp" width="914" height="224" muted playsinline loop preload="none" role="img" aria-label="A robot arm rearranges a rope on a tabletop."></video>
               </div>
               <span>Rope</span>
             </li>
             <li class="opening-scene scene-granular">
               <div class="opening-scene-image">
-                <video class="animation" src="./assets/teaser.mp4" poster="./assets/teaser.webp" width="914" height="224" muted playsinline loop preload="none" role="img" aria-label="A robot arm moves blue particles across a tabletop."></video>
+                <video class="animation" src="./assets/teaser.mp4" poster="./assets/teaser-4k.webp" width="914" height="224" muted playsinline loop preload="none" role="img" aria-label="A robot arm moves blue particles across a tabletop."></video>
               </div>
               <span>Granular</span>
             </li>
@@ -174,29 +179,41 @@
             <figure data-task="pusht">
               <h3>PushT</h3>
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>AdaJEPA</span><span>SE-JEPA</span></div>
-              <video class="animation" src="./assets/pusht-clean.mp4" poster="./assets/pusht-clean-still.webp" width="688" height="224" muted playsinline loop preload="none"
-                role="img" aria-label="The left panel shows the goal. AdaJEPA fails in the middle panel and SE-JEPA reaches the goal on the right."></video>
+              <video class="animation" poster="./assets/pusht-clean-still-4k.webp" width="688" height="224" muted playsinline loop preload="none"
+                role="img" aria-label="The left panel shows the goal. AdaJEPA fails in the middle panel and SE-JEPA reaches the goal on the right.">
+                <source src="./assets/pusht-clean-4k.mp4" media="(min-width: 800px)" type='video/mp4; codecs="avc1.640033"'>
+                <source src="./assets/pusht-clean.mp4" type="video/mp4">
+              </video>
               <figcaption>Red-object shift, CEM. AdaJEPA stops after 30 replans without reaching the goal. SE-JEPA succeeds in 9 replans.</figcaption>
             </figure>
             <figure data-task="pushobj">
               <h3>PushObj</h3>
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>AdaJEPA</span><span>SE-JEPA</span></div>
-              <video class="animation" src="./assets/pushobj-clean.mp4" poster="./assets/pushobj-clean-still.webp" width="688" height="224" muted playsinline loop preload="none"
-                role="img" aria-label="The left panel shows the I-shape goal. AdaJEPA fails in the middle panel and SE-JEPA reaches the goal on the right."></video>
+              <video class="animation" poster="./assets/pushobj-clean-still-4k.webp" width="688" height="224" muted playsinline loop preload="none"
+                role="img" aria-label="The left panel shows the I-shape goal. AdaJEPA fails in the middle panel and SE-JEPA reaches the goal on the right.">
+                <source src="./assets/pushobj-clean-4k.mp4" media="(min-width: 800px)" type='video/mp4; codecs="avc1.640033"'>
+                <source src="./assets/pushobj-clean.mp4" type="video/mp4">
+              </video>
               <figcaption>Unseen I shape, CEM. AdaJEPA stops after 30 replans without reaching the goal. SE-JEPA succeeds in 24 replans.</figcaption>
             </figure>
             <figure data-task="rope">
               <h3>Rope</h3>
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>Frozen DINO&#8209;WM</span><span>SE-JEPA</span></div>
-              <video class="animation" src="./assets/rope-clean.mp4" poster="./assets/rope-clean-still.webp" width="688" height="224" muted playsinline loop preload="none"
-                role="img" aria-label="The rope goal, Frozen DINO-WM rollout, and SE-JEPA rollout are shown from left to right."></video>
+              <video class="animation" poster="./assets/rope-clean-still-4k.webp" width="688" height="224" muted playsinline loop preload="none"
+                role="img" aria-label="The rope goal, Frozen DINO-WM rollout, and SE-JEPA rollout are shown from left to right.">
+                <source src="./assets/rope-clean-4k.mp4" media="(min-width: 800px)" type='video/mp4; codecs="avc1.640033"'>
+                <source src="./assets/rope-clean.mp4" type="video/mp4">
+              </video>
               <figcaption>Final Chamfer distance is 1.7795 for Frozen DINO-WM and 0.0613 for SE-JEPA.</figcaption>
             </figure>
             <figure data-task="granular">
               <h3>Granular</h3>
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>Frozen DINO&#8209;WM</span><span>SE-JEPA</span></div>
-              <video class="animation" src="./assets/granular-clean.mp4" poster="./assets/granular-clean-still.webp" width="688" height="224" muted playsinline loop preload="none"
-                role="img" aria-label="The granular goal, Frozen DINO-WM rollout, and SE-JEPA rollout are shown from left to right."></video>
+              <video class="animation" poster="./assets/granular-clean-still-4k.webp" width="688" height="224" muted playsinline loop preload="none"
+                role="img" aria-label="The granular goal, Frozen DINO-WM rollout, and SE-JEPA rollout are shown from left to right.">
+                <source src="./assets/granular-clean-4k.mp4" media="(min-width: 800px)" type='video/mp4; codecs="avc1.640033"'>
+                <source src="./assets/granular-clean.mp4" type="video/mp4">
+              </video>
               <figcaption>Final Chamfer distance is 0.3911 for Frozen DINO-WM and 0.1450 for SE-JEPA.</figcaption>
             </figure>
           </div>
@@ -216,11 +233,11 @@
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>AdaJEPA</span><span>SE-JEPA</span></div>
               <div class="summary-case">
                 <p>Original appearance</p>
-                <img src="./assets/pusht-summary.webp" width="688" height="224" loading="lazy" alt="Original PushT appearance. The target, AdaJEPA final state, and SE-JEPA final state are shown from left to right.">
+                <img src="./assets/pusht-summary-4k.webp" width="688" height="224" loading="lazy" alt="Original PushT appearance. The target, AdaJEPA final state, and SE-JEPA final state are shown from left to right.">
               </div>
               <div class="summary-case">
                 <p>Red object</p>
-                <img src="./assets/pusht-clean-still.webp" width="688" height="224" loading="lazy" alt="Red-object PushT example. The target, AdaJEPA final state, and SE-JEPA final state are shown from left to right.">
+                <img src="./assets/pusht-clean-still-4k.webp" width="688" height="224" loading="lazy" alt="Red-object PushT example. The target, AdaJEPA final state, and SE-JEPA final state are shown from left to right.">
               </div>
             </figure>
             <figure>
@@ -228,24 +245,24 @@
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>AdaJEPA</span><span>SE-JEPA</span></div>
               <div class="summary-case">
                 <p>I shape</p>
-                <img src="./assets/pushobj-clean-still.webp" width="688" height="224" loading="lazy" alt="I-shaped object. The target, AdaJEPA final state, and SE-JEPA final state are shown from left to right.">
+                <img src="./assets/pushobj-clean-still-4k.webp" width="688" height="224" loading="lazy" alt="I-shaped object. The target, AdaJEPA final state, and SE-JEPA final state are shown from left to right.">
               </div>
               <div class="summary-case">
                 <p>T shape</p>
-                <img src="./assets/pushobj-summary.webp" width="688" height="224" loading="lazy" alt="T-shaped object. The target, AdaJEPA final state, and SE-JEPA final state are shown from left to right.">
+                <img src="./assets/pushobj-summary-4k.webp" width="688" height="224" loading="lazy" alt="T-shaped object. The target, AdaJEPA final state, and SE-JEPA final state are shown from left to right.">
               </div>
             </figure>
             <figure>
               <figcaption>Rope</figcaption>
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>Frozen DINO&#8209;WM</span><span>SE-JEPA</span></div>
-              <img src="./assets/rope-clean-still.webp" width="688" height="224" loading="lazy" alt="Rope example. The target, Frozen DINO-WM final state, and SE-JEPA final state are shown from left to right.">
-              <img src="./assets/rope-summary.webp" width="688" height="224" loading="lazy" alt="Another rope example. The target, Frozen DINO-WM final state, and SE-JEPA final state are shown from left to right.">
+              <img src="./assets/rope-clean-still-4k.webp" width="688" height="224" loading="lazy" alt="Rope example. The target, Frozen DINO-WM final state, and SE-JEPA final state are shown from left to right.">
+              <img src="./assets/rope-summary-4k.webp" width="688" height="224" loading="lazy" alt="Another rope example. The target, Frozen DINO-WM final state, and SE-JEPA final state are shown from left to right.">
             </figure>
             <figure>
               <figcaption>Granular</figcaption>
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>Frozen DINO&#8209;WM</span><span>SE-JEPA</span></div>
-              <img src="./assets/granular-clean-still.webp" width="688" height="224" loading="lazy" alt="Granular example. The target, Frozen DINO-WM final state, and SE-JEPA final state are shown from left to right.">
-              <img src="./assets/granular-summary.webp" width="688" height="224" loading="lazy" alt="Another granular example. The target, Frozen DINO-WM final state, and SE-JEPA final state are shown from left to right.">
+              <img src="./assets/granular-clean-still-4k.webp" width="688" height="224" loading="lazy" alt="Granular example. The target, Frozen DINO-WM final state, and SE-JEPA final state are shown from left to right.">
+              <img src="./assets/granular-summary-4k.webp" width="688" height="224" loading="lazy" alt="Another granular example. The target, Frozen DINO-WM final state, and SE-JEPA final state are shown from left to right.">
             </figure>
           </div>
         </details>
@@ -372,8 +389,8 @@
           <p>On goals excluded from learning, the paper evaluates SE-JEPA with memory writes disabled and retrieval and fast adaptation enabled. Success gains over AdaJEPA are 17.11 percentage points (GD) and 15.41 (CEM) on unseen PushObj shapes, and 18.74 (GD) and 15.89 (CEM) across six PushT visual shifts.</p>
         </div>
         <figure class="paper-figure narrow-figure" data-scroll-reveal>
-          <a href="./assets/paper-figure-4.webp" aria-label="Open the full-size held-out success gains figure">
-            <img src="./assets/paper-figure-4.webp" width="1700" height="1396" loading="lazy"
+          <a href="./assets/paper-figure-4-4k.webp" aria-label="Open the full-size held-out success gains figure">
+            <img src="./assets/paper-figure-4-4k.webp" width="3840" height="3153" loading="lazy"
               alt="Paper Figure 4 showing held-out success-rate gains of SE-JEPA over AdaJEPA by PushObj shape and PushT visual condition for GD and CEM.">
           </a>
           <figcaption>Held-out success gains by condition and planner · Paper Figure 4</figcaption>
@@ -388,8 +405,8 @@
           <p>With a shared memory across 14 recurring shape and visual conditions, combined online success rises from 65.3% to 75.5% over five deployment rounds. Shape-task success rises from 73.4% to 82.0%, and visual-task success from 57.2% to 68.9%.</p>
         </div>
         <figure class="paper-figure" id="continual-results" data-scroll-reveal>
-          <a href="./assets/paper-figure-8.webp" aria-label="Open the full-size recurring-conditions figure">
-            <img src="./assets/paper-figure-8.webp" width="2300" height="897" loading="lazy"
+          <a href="./assets/paper-figure-8-4k.webp" aria-label="Open the full-size recurring-conditions figure">
+            <img src="./assets/paper-figure-8-4k.webp" width="3840" height="1497" loading="lazy"
               alt="Paper Figure 8 showing combined, shape, and visual success across five online deployment rounds, plus images of all 14 conditions.">
           </a>
           <figcaption>Continual learning across recurring conditions with a shared memory · Paper Figure 8</figcaption>
@@ -415,18 +432,20 @@
     </section>
 
     <section class="paper-section" id="bibtex" aria-labelledby="bibtex-title">
-      <div class="shell">
-        <div class="reading" data-scroll-reveal>
-          <h2 id="bibtex-title">BibTeX</h2>
+      <div class="shell citation-panel" data-scroll-reveal>
+        <details class="citation-details">
+          <summary><h2 id="bibtex-title">BibTeX</h2></summary>
           <pre class="bibtex-entry"><code>@misc{lin2026sejepa,
-    title  = {{SE-JEPA}: Self-Evolving Latent World Models},
-    author = {Lin, Chen and Tu, Yiyang and Zhou, Jiacheng and
-              Pu, Haotian and Li, Bin and Zhang, Longtai and
-              Fang, Shuangkang and Wang, Hongwei},
-    year   = {2026},
-    note   = {Preprint}
-  }</code></pre>
-        </div>
+  title  = {{SE-JEPA}: Self-Evolving Latent World Models},
+  author = {Lin, Chen and Tu, Yiyang and Zhou, Jiacheng and
+            Pu, Haotian and Li, Bin and Zhang, Longtai and
+            Fang, Shuangkang and Wang, Hongwei},
+  year   = {2026},
+  note   = {Preprint}
+}</code></pre>
+        </details>
+        <button class="citation-copy" type="button" data-copy-bibtex aria-label="Copy BibTeX" hidden>Copy</button>
+        <span class="visually-hidden" data-citation-status role="status"></span>
       </div>
     </section>
   </main>

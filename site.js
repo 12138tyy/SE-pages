@@ -251,6 +251,49 @@ openingMenu.addEventListener("keydown", (event) => {
   }
 });
 
+function connectCitation() {
+  const section = document.querySelector("#bibtex");
+  const details = section.querySelector("details");
+  const entry = section.querySelector("code");
+  const copy = section.querySelector("[data-copy-bibtex]");
+  const status = section.querySelector("[data-citation-status]");
+  let feedbackTimer;
+
+  function openLinkedCitation() {
+    if (location.hash === "#bibtex") details.open = true;
+  }
+
+  for (const link of document.querySelectorAll('a[href="#bibtex"]')) {
+    link.addEventListener("click", () => { details.open = true; });
+  }
+  window.addEventListener("hashchange", openLinkedCitation);
+  openLinkedCitation();
+
+  copy.addEventListener("click", async () => {
+    window.clearTimeout(feedbackTimer);
+    status.textContent = "";
+    try {
+      await navigator.clipboard.writeText(entry.textContent.trim());
+      copy.textContent = "Copied";
+      status.textContent = "BibTeX copied to the clipboard.";
+    } catch {
+      details.open = true;
+      const selection = window.getSelection();
+      if (!selection) return;
+      const range = document.createRange();
+      range.selectNodeContents(entry);
+      selection.removeAllRanges();
+      selection.addRange(range);
+      copy.textContent = "Selected";
+      status.textContent = "BibTeX selected. Use your copy shortcut.";
+    }
+    feedbackTimer = window.setTimeout(() => { copy.textContent = "Copy"; }, 2000);
+  });
+  copy.hidden = false;
+}
+
+connectCitation();
+
 function enableScrollReveal() {
   if (motionPreference.matches || !("IntersectionObserver" in window)) return;
 
