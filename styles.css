@@ -181,6 +181,7 @@ h2 { font-size: clamp(2.25rem, 4vw, 3.5rem); }
 h3 { margin-top: 2.1rem; font-size: clamp(1.5rem, 3vw, 2rem); }
 h4 { font-size: 1.3rem; }
 .abstract h2, .reading h2, .reading h3 { text-align: center; }
+.abstract p, .paper-section p { text-align: justify; hyphens: auto; }
 .reading p { margin-top: .9rem; }
 .abstract { max-width: 780px; padding-top: 88px; }
 .abstract p { margin-top: 1.15rem; color: var(--ink); font-size: clamp(1.07rem, 1.7vw, 1.45rem); line-height: 1.6; letter-spacing: -.025em; }
@@ -275,7 +276,7 @@ h4 { font-size: 1.3rem; }
 .paper-figure figcaption { text-align: center; }
 .figure-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .25rem .8rem; font-size: .875rem; }
 .figure-tools a { padding: .15rem .25rem; }
-#planning, #continual-learning { border-top: 1px solid var(--line); }
+#planning, #continual-learning, #bibtex { border-top: 1px solid var(--line); }
 .results-table { margin-top: 1.65rem; }
 .results-table figcaption { margin-bottom: .75rem; color: var(--ink); font-size: .9rem; }
 .table-wrap { overflow-x: auto; overscroll-behavior-inline: contain; }
@@ -290,6 +291,18 @@ h4 { font-size: 1.3rem; }
 .reading .table-note { margin-top: .75rem; font-size: .875rem; }
 .qualitative-intro { margin-top: 2.4rem; }
 .qualitative-intro h3 { margin-top: 0; }
+.bibtex-entry {
+  margin: 1.25rem 0 0;
+  padding: clamp(.9rem, 3vw, 1.5rem);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--soft);
+  color: var(--ink);
+  font: .875rem/1.6 ui-monospace, Consolas, monospace;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.bibtex-entry code { font: inherit; }
 .site-footer { padding: 1.45rem 0; text-align: center; background: #162720; }
 .site-footer a { color: #eaf1e7; font-size: .875rem; font-weight: 500; }
 
