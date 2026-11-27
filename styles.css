@@ -267,18 +267,22 @@ h4 { font-size: 1.3rem; }
 .rollouts[data-carousel] {
   display: flex;
   position: relative;
-  align-items: flex-start;
+  flex-direction: column;
   gap: 0;
   min-width: 0;
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
-  scroll-snap-type: x mandatory;
+  block-size: var(--rollout-frame-size, auto);
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scrollbar-gutter: stable both-edges;
   scrollbar-width: thin;
-  padding-bottom: .45rem;
 }
 .rollouts[data-carousel] > figure {
-  flex: 0 0 100%;
+  position: relative;
+  flex: 0 0 var(--rollout-frame-size, auto);
+  min-block-size: 0;
   scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 .rollout-controls, .rollout-paging { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .5rem; }
 .rollouts figure { min-width: 0; }

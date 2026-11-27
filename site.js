@@ -20,7 +20,19 @@ function connectRolloutCarousel(group, updateGroup) {
   let settleTimer;
 
   function slideOffset(index) {
-    return slides[index].offsetLeft - slides[0].offsetLeft;
+    return slides[index].offsetTop - slides[0].offsetTop;
+  }
+
+  function fitSlides() {
+    if (!track.hasAttribute("data-carousel")) return;
+    const height = Math.max(...slides.map((slide) => {
+      const caption = slide.lastElementChild;
+      return caption.offsetTop + caption.offsetHeight;
+    })) + 2;
+    if (height === track.clientHeight) return;
+
+    track.style.setProperty("--rollout-frame-size", `${height}px`);
+    if (selected > 0) track.scrollTop = slideOffset(selected);
   }
 
   function setCarousel(enabled) {
@@ -28,6 +40,7 @@ function connectRolloutCarousel(group, updateGroup) {
     paging.hidden = !enabled;
     track.tabIndex = enabled ? 0 : -1;
     for (const video of videos) video.loop = !enabled;
+    if (enabled) fitSlides();
   }
 
   function choose(index) {
@@ -40,8 +53,8 @@ function connectRolloutCarousel(group, updateGroup) {
   function settle() {
     if (!track.hasAttribute("data-carousel")) return;
     const nearest = slides.reduce((best, _, index) => {
-      const distance = Math.abs(slideOffset(index) - track.scrollLeft);
-      return distance < Math.abs(slideOffset(best) - track.scrollLeft) ? index : best;
+      const distance = Math.abs(slideOffset(index) - track.scrollTop);
+      return distance < Math.abs(slideOffset(best) - track.scrollTop) ? index : best;
     }, 0);
     choose(nearest);
   }
@@ -60,9 +73,9 @@ function connectRolloutCarousel(group, updateGroup) {
       && Math.abs(selected - index) === 1;
     setCarousel(true);
     selected = index;
-    const left = slideOffset(index);
-    track.scrollTo({ left, behavior: smooth ? "smooth" : "auto" });
-    if (Math.abs(track.scrollLeft - left) < 1) {
+    const top = slideOffset(index);
+    track.scrollTo({ top, behavior: smooth ? "smooth" : "instant" });
+    if (Math.abs(track.scrollTop - top) < 1) {
       window.clearTimeout(settleTimer);
       choose(index);
     } else {
@@ -88,13 +101,30 @@ function connectRolloutCarousel(group, updateGroup) {
 
   paging.querySelector("[data-rollout-prev]").addEventListener("click", () => move(-1));
   paging.querySelector("[data-rollout-next]").addEventListener("click", () => move(1));
+  track.addEventListener("keydown", (event) => {
+    if (event.target !== track || !track.hasAttribute("data-carousel")
+      || event.altKey || event.ctrlKey || event.metaKey) return;
+    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+      event.preventDefault();
+      move(event.key === "ArrowUp" ? -1 : 1);
+    }
+  });
   track.addEventListener("scroll", () => {
     if (!track.hasAttribute("data-carousel")) return;
-    if (active === -1 || Math.abs(track.scrollLeft - slideOffset(active)) >= 1) waitForSettle();
+    if (active === -1 || Math.abs(track.scrollTop - slideOffset(active)) >= 1) waitForSettle();
   }, { passive: true });
 
+  if ("ResizeObserver" in window) {
+    const observer = new ResizeObserver(fitSlides);
+    for (const slide of slides) {
+      for (const block of slide.children) observer.observe(block);
+    }
+  } else {
+    window.addEventListener("resize", fitSlides);
+    for (const video of videos) video.addEventListener("loadedmetadata", fitSlides);
+  }
   setCarousel(selected !== -1);
-  if (selected > 0) track.scrollLeft = slideOffset(selected);
+  if (selected > 0) track.scrollTop = slideOffset(selected);
   filter.hidden = false;
 
   return {
