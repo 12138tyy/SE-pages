@@ -295,35 +295,39 @@ function connectCitation() {
 connectCitation();
 
 function connectPlanningResults() {
-  const results = document.querySelector("[data-planning-results]");
-  if (!results) return;
+  const buttons = [...document.querySelectorAll(".planning-switch button[data-planner]")];
+  const panels = [...document.querySelectorAll("[data-planning-panel]")];
+  if (!buttons.length) return;
 
-  const controls = results.querySelector(".planning-switch");
-  const buttons = [...controls.querySelectorAll("button")];
-  const panels = results.querySelectorAll("[data-planning-panel]");
+  function choose(planner) {
+    for (const button of buttons) button.setAttribute("aria-pressed", String(button.dataset.planner === planner));
+    for (const panel of panels) panel.hidden = panel.dataset.planningPanel !== planner;
+  }
 
-  function choose(button) {
-    const panelId = button.getAttribute("aria-controls");
-    for (const item of buttons) item.setAttribute("aria-pressed", String(item === button));
-    for (const panel of panels) panel.hidden = panel.id !== panelId;
+  function panelForFragment(fragment) {
+    return document.getElementById(fragment.slice(1))?.closest("[data-planning-panel]");
   }
 
   function chooseFromFragment(fragment) {
-    const target = document.getElementById(fragment.slice(1));
-    const panel = target?.closest("[data-planning-panel]");
-    const button = buttons.find((item) => item.getAttribute("aria-controls") === panel?.id);
-    if (button) choose(button);
+    const panel = panelForFragment(fragment);
+    if (!panel) return;
+
+    choose(panel.dataset.planningPanel);
+    const details = document.getElementById(fragment.slice(1)).closest("details");
+    if (details) details.open = true;
   }
 
-  for (const button of buttons) button.addEventListener("click", () => choose(button));
-  for (const link of document.querySelectorAll('a[href="#planning-table-caption"], a[href="#gd-planning-table-caption"]')) {
-    link.addEventListener("click", () => chooseFromFragment(link.hash));
+  for (const button of buttons) {
+    button.addEventListener("click", () => choose(button.dataset.planner));
+    button.closest(".planning-switch").hidden = false;
+  }
+  for (const link of document.querySelectorAll('a[href^="#"]')) {
+    if (panelForFragment(link.hash)) link.addEventListener("click", () => chooseFromFragment(link.hash));
   }
   window.addEventListener("hashchange", () => chooseFromFragment(location.hash));
 
-  choose(buttons[0]);
+  choose("cem");
   chooseFromFragment(location.hash);
-  controls.hidden = false;
 }
 
 connectPlanningResults();

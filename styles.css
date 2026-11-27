@@ -202,6 +202,7 @@ h4 { font-size: 1.3rem; }
 .highlight-band { padding: 56px 0 85px; }
 .highlights { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 910px; }
 .highlight { display: flex; flex-direction: column; align-items: center; padding: .4rem clamp(.65rem, 2vw, 1.65rem); text-align: center; font-size: .9375rem; }
+.highlight-band .highlight-switch { margin-top: 0; }
 .highlight + .highlight { border-inline-start: 1px solid var(--line); }
 .highlight-label { font-weight: 650; }
 .highlight-values {
@@ -219,6 +220,9 @@ h4 { font-size: 1.3rem; }
 }
 .highlight-before { color: var(--ink); font-weight: 500; }
 .highlight-arrow { font-size: .75em; font-weight: 500; }
+.highlight-breakdown { display: grid; gap: .3rem; width: 100%; max-width: 15rem; margin: .3rem 0 .45rem; }
+.highlight-breakdown > span { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: .4rem; text-align: left; }
+.highlight-breakdown .highlight-values { margin: 0; font-size: clamp(.94rem, 1.6vw, 1.15rem); }
 .highlight:hover { text-decoration: none; }
 .highlight:hover .highlight-label { text-decoration: underline; }
 
@@ -372,12 +376,16 @@ h4 { font-size: 1.3rem; }
 .table-wrap { overflow-x: auto; overscroll-behavior-inline: contain; }
 .results-table table { width: 100%; border-collapse: collapse; background: var(--paper); font-size: .875rem; line-height: 1.5; font-variant-numeric: tabular-nums; }
 .wide-table { min-width: 48rem; }
-.gd-table { min-width: 36rem; }
+.held-out-table { min-width: 36rem; }
 .results-table th, .results-table td { padding: .5em .75em; border: 1px solid var(--line); text-align: center; vertical-align: middle; white-space: nowrap; }
 .results-table th[scope="row"], .results-table thead tr:first-child th:first-child { text-align: left; }
 .results-table tbody th { font-weight: inherit; }
 .results-table .paper-result-highlight { border-top: 2px solid var(--ink); font-weight: 700; }
 .reading .table-note { margin-top: .75rem; font-size: .9375rem; }
+.result-details { margin-top: 1.5rem; border-block: 1px solid var(--line); }
+.result-details > summary { padding: .8rem .35rem; font-weight: 650; cursor: pointer; }
+.result-details > summary:hover { text-decoration: underline; }
+.result-details[open] { padding-bottom: 1.25rem; }
 #bibtex { padding-block: .8rem; }
 .citation-panel { position: relative; max-width: 760px; }
 .citation-details summary {
