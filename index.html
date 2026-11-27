@@ -8,8 +8,8 @@
   <title>SE-JEPA | Self-Evolving Latent World Models</title>
   <link rel="stylesheet" href="./assets/fonts/InterVariable.css">
   <link rel="stylesheet" href="./assets/fonts/InterTight.css">
-  <link rel="stylesheet" href="./styles.css?v=31">
-  <script defer src="./site.js?v=12"></script>
+  <link rel="stylesheet" href="./styles.css?v=32">
+  <script defer src="./site.js?v=13"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -357,36 +357,73 @@
         <div class="reading" data-scroll-reveal>
           <h2 id="planning-title">Planning with SE-JEPA</h2>
           <p>SE-JEPA encodes the current observation and goal, predicts the effects of candidate action sequences in latent space, and executes the first block of the selected sequence. It replans after observing the result. We report pushing results for gradient descent (GD) and the cross-entropy method (CEM).</p>
-          <h3>Planning Results</h3>
-          <p>The paper’s CEM comparison covers seven PushObj shapes, six PushT visual shifts, and two deformable-object tasks. The PushObj unseen subset contains the I, square, and small T shapes. The PushT color subset contains three recoloring conditions.</p>
+          <h3 id="planning-results-title">Planning Results</h3>
         </div>
 
-        <figure class="results-table" data-scroll-reveal>
-          <figcaption id="planning-table-caption"><strong>Goal-conditioned planning with CEM.</strong> Paper Table 1.</figcaption>
-          <div class="table-wrap" tabindex="0" role="region" aria-labelledby="planning-table-caption">
-            <table class="wide-table" aria-labelledby="planning-table-caption">
-              <colgroup span="1"></colgroup><colgroup span="3"></colgroup><colgroup span="3"></colgroup><colgroup span="1"></colgroup><colgroup span="1"></colgroup>
-              <thead>
-                <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="3">PushObj</th><th scope="colgroup" colspan="3">PushT visual shifts</th><th scope="colgroup">Rope</th><th scope="colgroup">Granular</th></tr>
-                <tr><th scope="col">All-7 (%)</th><th scope="col">Unseen (%)</th><th scope="col">Replans ↓</th><th scope="col">All-6 (%)</th><th scope="col">Color-3 (%)</th><th scope="col">Replans ↓</th><th scope="col">CD ↓</th><th scope="col">CD ↓</th></tr>
-              </thead>
-              <tbody>
-                <tr><th scope="row">DreamerV3</th><td>7.1</td><td>5.3</td><td>28.36</td><td>5.7</td><td>0.0</td><td>28.91</td><td>2.49</td><td>1.05</td></tr>
-                <tr><th scope="row">IRIS</th><td>2.9</td><td>2.7</td><td>29.37</td><td>6.0</td><td>6.7</td><td>28.85</td><td>1.11</td><td>0.37</td></tr>
-                <tr><th scope="row">R3M</th><td>18.9</td><td>18.0</td><td>25.49</td><td>21.7</td><td>27.3</td><td>25.00</td><td>1.13</td><td>0.95</td></tr>
-                <tr><th scope="row">DINO CLS</th><td>14.9</td><td>10.0</td><td>26.77</td><td>34.7</td><td>35.3</td><td>22.38</td><td>0.84</td><td>0.79</td></tr>
-                <tr><th scope="row">DINO-WM</th><td>62.0</td><td>46.0</td><td>16.15</td><td>33.0</td><td>37.3</td><td>22.05</td><td>0.491</td><td>0.301</td></tr>
-                <tr><th scope="row">LeWM</th><td>64.0</td><td>50.0</td><td>16.28</td><td>40.3</td><td>16.0</td><td>21.45</td><td>0.786</td><td>0.322</td></tr>
-                <tr><th scope="row">DDP-WM</th><td>57.7</td><td>43.3</td><td>17.59</td><td>52.7</td><td>57.3</td><td>18.39</td><td>0.677</td><td>0.259</td></tr>
-                <tr><th scope="row">Frozen (pretrained)</th><td>43.8</td><td>36.2</td><td>21.08</td><td>48.3</td><td>33.6</td><td>20.10</td><td>0.491</td><td>0.301</td></tr>
-                <tr><th scope="row">AdaJEPA</th><td>70.4</td><td>54.4</td><td>16.02</td><td>60.2</td><td>42.2</td><td>18.46</td><td>0.629</td><td>0.304</td></tr>
-                <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>80.4</td><td>73.1</td><td>12.99</td><td>76.1</td><td>65.2</td><td>14.46</td><td>0.252</td><td>0.220</td></tr>
-              </tbody>
-            </table>
+        <div class="planning-results" data-planning-results data-scroll-reveal>
+          <div class="planning-switch" role="group" aria-label="Planning results optimizer" hidden>
+            <button type="button" aria-controls="planning-cem" aria-pressed="true">CEM</button>
+            <button type="button" aria-controls="planning-gd" aria-pressed="false">GD</button>
           </div>
-        </figure>
+          <div id="planning-cem" data-planning-panel>
+            <div class="reading">
+              <p>The paper’s CEM comparison covers seven PushObj shapes, six PushT visual shifts, and two deformable-object tasks. The PushObj unseen subset contains the I, square, and small T shapes. The PushT color subset contains three recoloring conditions.</p>
+            </div>
+            <figure class="results-table">
+              <figcaption id="planning-table-caption"><strong>Goal-conditioned planning with CEM.</strong> Paper Table 1.</figcaption>
+              <div class="table-wrap" tabindex="0" role="region" aria-labelledby="planning-table-caption">
+                <table class="wide-table" aria-labelledby="planning-table-caption">
+                  <colgroup span="1"></colgroup><colgroup span="3"></colgroup><colgroup span="3"></colgroup><colgroup span="1"></colgroup><colgroup span="1"></colgroup>
+                  <thead>
+                    <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="3">PushObj</th><th scope="colgroup" colspan="3">PushT visual shifts</th><th scope="colgroup">Rope</th><th scope="colgroup">Granular</th></tr>
+                    <tr><th scope="col">All-7 (%)</th><th scope="col">Unseen (%)</th><th scope="col">Replans ↓</th><th scope="col">All-6 (%)</th><th scope="col">Color-3 (%)</th><th scope="col">Replans ↓</th><th scope="col">CD ↓</th><th scope="col">CD ↓</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><th scope="row">DreamerV3</th><td>7.1</td><td>5.3</td><td>28.36</td><td>5.7</td><td>0.0</td><td>28.91</td><td>2.49</td><td>1.05</td></tr>
+                    <tr><th scope="row">IRIS</th><td>2.9</td><td>2.7</td><td>29.37</td><td>6.0</td><td>6.7</td><td>28.85</td><td>1.11</td><td>0.37</td></tr>
+                    <tr><th scope="row">R3M</th><td>18.9</td><td>18.0</td><td>25.49</td><td>21.7</td><td>27.3</td><td>25.00</td><td>1.13</td><td>0.95</td></tr>
+                    <tr><th scope="row">DINO CLS</th><td>14.9</td><td>10.0</td><td>26.77</td><td>34.7</td><td>35.3</td><td>22.38</td><td>0.84</td><td>0.79</td></tr>
+                    <tr><th scope="row">DINO-WM</th><td>62.0</td><td>46.0</td><td>16.15</td><td>33.0</td><td>37.3</td><td>22.05</td><td>0.491</td><td>0.301</td></tr>
+                    <tr><th scope="row">LeWM</th><td>64.0</td><td>50.0</td><td>16.28</td><td>40.3</td><td>16.0</td><td>21.45</td><td>0.786</td><td>0.322</td></tr>
+                    <tr><th scope="row">DDP-WM</th><td>57.7</td><td>43.3</td><td>17.59</td><td>52.7</td><td>57.3</td><td>18.39</td><td>0.677</td><td>0.259</td></tr>
+                    <tr><th scope="row">Frozen (pretrained)</th><td>43.8</td><td>36.2</td><td>21.08</td><td>48.3</td><td>33.6</td><td>20.10</td><td>0.491</td><td>0.301</td></tr>
+                    <tr><th scope="row">AdaJEPA</th><td>70.4</td><td>54.4</td><td>16.02</td><td>60.2</td><td>42.2</td><td>18.46</td><td>0.629</td><td>0.304</td></tr>
+                    <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>80.4</td><td>73.1</td><td>12.99</td><td>76.1</td><td>65.2</td><td>14.46</td><td>0.252</td><td>0.220</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </figure>
+            <div class="reading">
+              <p class="table-note">Replans are averaged with a cap of 30 for unsuccessful episodes. CD is final Chamfer distance. The SE-JEPA PushObj results above are from the fifth online round.</p>
+            </div>
+          </div>
+          <div id="planning-gd" data-planning-panel>
+            <div class="reading">
+              <p>Both tasks use paired held-out goals after five learning rounds, with memory writes disabled. Retrieval and fast adaptation remain enabled during testing.</p>
+            </div>
+            <figure class="results-table">
+              <figcaption id="gd-planning-table-caption"><strong>Goal-conditioned planning with GD on held-out goals.</strong> Paper Table VI.</figcaption>
+              <div class="table-wrap" tabindex="0" role="region" aria-labelledby="gd-planning-table-caption">
+                <table class="gd-table" aria-labelledby="gd-planning-table-caption">
+                  <colgroup span="1"></colgroup><colgroup span="3"></colgroup><colgroup span="3"></colgroup>
+                  <thead>
+                    <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="3">PushObj</th><th scope="colgroup" colspan="3">PushT</th></tr>
+                    <tr><th scope="col">All-7 (%)</th><th scope="col">Unseen (%)</th><th scope="col">Replans ↓</th><th scope="col">All-7 (%)</th><th scope="col">Shift-6 (%)</th><th scope="col">Replans ↓</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><th scope="row">Frozen</th><td>42.48</td><td>32.44</td><td>20.02</td><td>44.10</td><td>41.56</td><td>19.94</td></tr>
+                    <tr><th scope="row">AdaJEPA</th><td>72.19</td><td>55.33</td><td>14.52</td><td>58.67</td><td>54.89</td><td>17.96</td></tr>
+                    <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>81.59</td><td>72.44</td><td>11.30</td><td>75.68</td><td>73.63</td><td>13.21</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </figure>
+            <div class="reading">
+              <p class="table-note">PushObj Unseen averages the I, square, and small T shapes. PushT Shift-6 excludes the original appearance. PushT replans are averaged over all seven conditions.</p>
+            </div>
+          </div>
+        </div>
         <div class="reading" data-scroll-reveal>
-          <p class="table-note">Replans are averaged with a cap of 30 for unsuccessful episodes. CD is final Chamfer distance. The SE-JEPA PushObj results above are from the fifth online round.</p>
           <h3 id="held-out">Held-Out Planning</h3>
           <p>On goals excluded from learning, the paper evaluates SE-JEPA with memory writes disabled and retrieval and fast adaptation enabled. Success gains over AdaJEPA are 17.11 percentage points (GD) and 15.41 (CEM) on unseen PushObj shapes, and 18.74 (GD) and 15.89 (CEM) across six PushT visual shifts.</p>
         </div>

@@ -349,11 +349,30 @@ h4 { font-size: 1.3rem; }
 .paper-figure figcaption { text-align: center; }
 .figure-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .25rem .8rem; font-size: .9375rem; }
 .figure-tools a { padding: .15rem .25rem; text-decoration: underline; }
+.planning-switch {
+  display: flex;
+  justify-content: center;
+  gap: .45rem;
+  margin: .95rem auto 1rem;
+}
+.planning-switch button {
+  min-height: 2.35rem;
+  min-width: 4rem;
+  padding: .35rem .85rem;
+  border: 1px solid var(--control-border);
+  border-radius: 5px;
+  background: var(--paper);
+  font-size: .9375rem;
+  font-weight: 650;
+}
+.planning-switch button:hover { border-color: var(--ink); }
+.planning-switch button[aria-pressed="true"] { border-color: var(--ink); color: var(--paper); background: var(--ink); }
 .results-table { margin-top: 1.65rem; }
 .results-table figcaption { margin-bottom: .75rem; font-size: .9375rem; }
 .table-wrap { overflow-x: auto; overscroll-behavior-inline: contain; }
 .results-table table { width: 100%; border-collapse: collapse; background: var(--paper); font-size: .875rem; line-height: 1.5; font-variant-numeric: tabular-nums; }
 .wide-table { min-width: 48rem; }
+.gd-table { min-width: 36rem; }
 .results-table th, .results-table td { padding: .5em .75em; border: 1px solid var(--line); text-align: center; vertical-align: middle; white-space: nowrap; }
 .results-table th[scope="row"], .results-table thead tr:first-child th:first-child { text-align: left; }
 .results-table tbody th { font-weight: inherit; }

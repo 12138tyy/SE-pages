@@ -294,6 +294,40 @@ function connectCitation() {
 
 connectCitation();
 
+function connectPlanningResults() {
+  const results = document.querySelector("[data-planning-results]");
+  if (!results) return;
+
+  const controls = results.querySelector(".planning-switch");
+  const buttons = [...controls.querySelectorAll("button")];
+  const panels = results.querySelectorAll("[data-planning-panel]");
+
+  function choose(button) {
+    const panelId = button.getAttribute("aria-controls");
+    for (const item of buttons) item.setAttribute("aria-pressed", String(item === button));
+    for (const panel of panels) panel.hidden = panel.id !== panelId;
+  }
+
+  function chooseFromFragment(fragment) {
+    const target = document.getElementById(fragment.slice(1));
+    const panel = target?.closest("[data-planning-panel]");
+    const button = buttons.find((item) => item.getAttribute("aria-controls") === panel?.id);
+    if (button) choose(button);
+  }
+
+  for (const button of buttons) button.addEventListener("click", () => choose(button));
+  for (const link of document.querySelectorAll('a[href="#planning-table-caption"], a[href="#gd-planning-table-caption"]')) {
+    link.addEventListener("click", () => chooseFromFragment(link.hash));
+  }
+  window.addEventListener("hashchange", () => chooseFromFragment(location.hash));
+
+  choose(buttons[0]);
+  chooseFromFragment(location.hash);
+  controls.hidden = false;
+}
+
+connectPlanningResults();
+
 function enableScrollReveal() {
   if (motionPreference.matches || !("IntersectionObserver" in window)) return;
 
