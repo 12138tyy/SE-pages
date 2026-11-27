@@ -259,6 +259,26 @@ h4 { font-size: 1.3rem; }
 #method-animation { max-width: 1020px; margin-top: 2.5rem; }
 #method-animation .method-animation-header { margin: 0 0 .8rem; gap: .5rem .85rem; }
 .method-animation-header strong { font-size: 1.125rem; }
+.animation-timeline {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .8rem;
+  width: min(100%, 42rem);
+  margin: 0 auto .8rem;
+  font-size: .9375rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.animation-timeline input {
+  width: 100%;
+  height: 32px;
+  margin: 0;
+  accent-color: var(--ink);
+  cursor: pointer;
+  touch-action: pan-y;
+}
+.animation-timeline span { min-width: 10ch; text-align: right; white-space: nowrap; }
 .method-equations { margin-top: 3rem; }
 .method-equations p { color: var(--ink); }
 .equation-math { overflow-x: auto; overflow-y: hidden; margin-block: 1em; padding-block: .2em; }
@@ -339,9 +359,16 @@ h4 { font-size: 1.3rem; }
 }
 
 @media screen and (prefers-reduced-motion: no-preference) {
-  [data-scroll-reveal="pending"] { opacity: 0; transform: translateY(28px); }
+  [data-scroll-reveal] { transform-origin: 50% 80%; }
+  [data-scroll-reveal="pending"] {
+    opacity: 0;
+    transform: perspective(1150px) translate3d(0, 32px, -30px) rotateX(6deg) scale(.987);
+  }
+  :is(.paper-figure, .results-table, .rollouts)[data-scroll-reveal="pending"] {
+    box-shadow: 0 18px 42px rgb(0 0 0 / 12%);
+  }
   [data-scroll-reveal="revealed"] {
-    transition: opacity .9s cubic-bezier(.28, .11, .32, 1), transform .9s cubic-bezier(.28, .11, .32, 1);
+    transition: opacity .72s ease-out, transform .88s cubic-bezier(.22, .65, .28, 1), box-shadow .88s ease-out;
   }
 }
 

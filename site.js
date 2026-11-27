@@ -1,11 +1,19 @@
 const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+function animationTime(seconds) {
+  const wholeSeconds = Math.floor(seconds);
+  const minutes = Math.floor(wholeSeconds / 60);
+  return `${minutes}:${String(wholeSeconds % 60).padStart(2, "0")}`;
+}
+
 for (const group of document.querySelectorAll("[data-animation-group]")) {
   const button = group.querySelector("[data-animation-toggle]");
   const videos = [...group.querySelectorAll("video.animation")];
   if (!videos[0]?.canPlayType("video/mp4")) continue;
   const visible = new Set();
+  const timeline = group.querySelector("[data-animation-timeline]");
   let userPaused;
+  let scrubPointer;
 
   function isPaused() {
     return userPaused ?? motionPreference.matches;
@@ -26,7 +34,7 @@ for (const group of document.querySelectorAll("[data-animation-group]")) {
   }
 
   function updateVideo(video) {
-    if (isPaused() || document.hidden || !visible.has(video)) {
+    if (isPaused() || scrubPointer !== undefined || document.hidden || !visible.has(video)) {
       if (!video.paused) video.pause();
       return;
     }
@@ -44,6 +52,55 @@ for (const group of document.querySelectorAll("[data-animation-group]")) {
   function updateGroup() {
     updateButton();
     videos.forEach(updateVideo);
+  }
+
+  if (timeline) {
+    const [video] = videos;
+    const scrubber = timeline.querySelector("input");
+    const clock = timeline.querySelector("[data-animation-time]");
+
+    function updateTimeline() {
+      const duration = video.duration;
+      if (!Number.isFinite(duration) || duration <= 0) return;
+
+      scrubber.disabled = false;
+      const maximum = String(duration);
+      if (scrubber.max !== maximum) scrubber.max = maximum;
+      if (scrubPointer === undefined) scrubber.value = String(video.currentTime);
+
+      const positionLabel = animationTime(scrubber.valueAsNumber);
+      const durationLabel = animationTime(duration);
+      const timeText = `${positionLabel} / ${durationLabel}`;
+      if (clock.textContent !== timeText) {
+        clock.textContent = timeText;
+        scrubber.setAttribute("aria-valuetext", `${positionLabel} of ${durationLabel}`);
+      }
+      timeline.hidden = false;
+    }
+
+    function endScrub(event) {
+      if (scrubPointer === undefined || ("pointerId" in event && event.pointerId !== scrubPointer)) return;
+      scrubPointer = undefined;
+      updateGroup();
+    }
+
+    scrubber.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0 || !event.isPrimary) return;
+      scrubPointer = event.pointerId;
+      updateVideo(video);
+    });
+    window.addEventListener("pointerup", endScrub);
+    window.addEventListener("pointercancel", endScrub);
+    window.addEventListener("blur", endScrub);
+
+    scrubber.addEventListener("input", () => {
+      video.currentTime = scrubber.valueAsNumber;
+      updateTimeline();
+      updateButton();
+    });
+    video.addEventListener("loadedmetadata", updateTimeline);
+    video.addEventListener("timeupdate", updateTimeline);
+    updateTimeline();
   }
 
   if ("IntersectionObserver" in window) {

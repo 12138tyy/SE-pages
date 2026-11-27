@@ -8,8 +8,8 @@
   <title>SE-JEPA | Self-Evolving Latent World Models</title>
   <link rel="stylesheet" href="./assets/fonts/InterVariable.css">
   <link rel="stylesheet" href="./assets/fonts/InterTight.css">
-  <link rel="stylesheet" href="./styles.css?v=25">
-  <script defer src="./site.js?v=9"></script>
+  <link rel="stylesheet" href="./styles.css?v=26">
+  <script defer src="./site.js?v=10"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -279,7 +279,12 @@
             <button type="button" data-animation-toggle hidden>Pause animation</button>
             <a href="./assets/architecture-method-poster.webp">Open full-size diagram</a>
           </figcaption>
-          <video class="animation" src="./assets/architecture-method.mp4" poster="./assets/architecture-method-poster.webp" width="960" height="544" muted playsinline loop preload="none"
+          <div class="animation-timeline" data-animation-timeline hidden>
+            <label class="visually-hidden" for="method-position">Architecture animation progress</label>
+            <input id="method-position" type="range" min="0" max="0" step="any" value="0" disabled>
+            <span data-animation-time aria-hidden="true">0:00 / 0:00</span>
+          </div>
+          <video class="animation" src="./assets/architecture-method.mp4" poster="./assets/architecture-method-poster.webp" width="960" height="544" muted playsinline loop preload="metadata"
             role="img" aria-label="SE-JEPA architecture animation showing predictor selection, fast adaptation during planning, and the validation and replay branches used to consolidate experience."></video>
         </figure>
         <div class="reading method-equations" data-scroll-reveal>
