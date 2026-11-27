@@ -8,7 +8,7 @@
   <title>SE-JEPA | Self-Evolving Latent World Models</title>
   <link rel="stylesheet" href="./assets/fonts/InterVariable.css">
   <link rel="stylesheet" href="./assets/fonts/InterTight.css">
-  <link rel="stylesheet" href="./styles.css?v=27">
+  <link rel="stylesheet" href="./styles.css?v=28">
   <script defer src="./site.js?v=10"></script>
 </head>
 <body>
@@ -111,49 +111,51 @@
       </div>
     </section>
 
-    <section class="abstract shell" id="abstract" aria-labelledby="abstract-title" data-scroll-reveal>
-      <h2 id="abstract-title">Abstract</h2>
-      <p>Latent world models can adapt during a single task, but those updates may be specific to the episode. SE-JEPA uses the trajectories collected during deployment to train reusable predictors across episodes. It groups experience by predictive compatibility, trains a slow predictor for each domain through replay, and validates each predictor before making it available for reuse. When conditions recur, feedback from the current episode determines which predictor to use for planning. We evaluate this approach under visual and shape shifts in pushing tasks and on deformable-object manipulation.</p>
-    </section>
+    <div class="overview-band module-gradient">
+      <section class="abstract shell" id="abstract" aria-labelledby="abstract-title" data-scroll-reveal>
+        <h2 id="abstract-title">Abstract</h2>
+        <p>Latent world models can adapt during a single task, but those updates may be specific to the episode. SE-JEPA uses the trajectories collected during deployment to train reusable predictors across episodes. It groups experience by predictive compatibility, trains a slow predictor for each domain through replay, and validates each predictor before making it available for reuse. When conditions recur, feedback from the current episode determines which predictor to use for planning. We evaluate this approach under visual and shape shifts in pushing tasks and on deformable-object manipulation.</p>
+      </section>
 
-    <section class="highlight-band" aria-label="Key results">
-      <div class="shell highlights" data-scroll-reveal>
-        <a class="highlight" href="#planning-table-caption">
-          <span class="highlight-label">PushObj · CEM</span>
-          <strong class="highlight-values">
-            <span class="highlight-before">70.4%</span>
-            <span class="highlight-arrow" aria-hidden="true">→</span>
-            <span class="visually-hidden"> to </span>
-            <span>80.4%</span>
-          </strong>
-          <span>Success across seven shapes<br>AdaJEPA to SE-JEPA</span>
-        </a>
-        <a class="highlight" href="#planning-table-caption">
-          <span class="highlight-label">PushT · CEM</span>
-          <strong class="highlight-values">
-            <span class="highlight-before">60.2%</span>
-            <span class="highlight-arrow" aria-hidden="true">→</span>
-            <span class="visually-hidden"> to </span>
-            <span>76.1%</span>
-          </strong>
-          <span>Success across six visual shifts<br>AdaJEPA to SE-JEPA</span>
-        </a>
-        <a class="highlight" href="#continual-results">
-          <span class="highlight-label">Continual learning</span>
-          <strong class="highlight-values">
-            <span class="highlight-before">65.3%</span>
-            <span class="highlight-arrow" aria-hidden="true">→</span>
-            <span class="visually-hidden"> to </span>
-            <span>75.5%</span>
-          </strong>
-          <span>Combined online success<br>Round 1 to round 5</span>
-        </a>
-      </div>
-    </section>
+      <section class="highlight-band" aria-label="Key results">
+        <div class="shell highlights" data-scroll-reveal>
+          <a class="highlight" href="#planning-table-caption">
+            <span class="highlight-label">PushObj · CEM</span>
+            <strong class="highlight-values">
+              <span class="highlight-before">70.4%</span>
+              <span class="highlight-arrow" aria-hidden="true">→</span>
+              <span class="visually-hidden"> to </span>
+              <span>80.4%</span>
+            </strong>
+            <span>Success across seven shapes<br>AdaJEPA to SE-JEPA</span>
+          </a>
+          <a class="highlight" href="#planning-table-caption">
+            <span class="highlight-label">PushT · CEM</span>
+            <strong class="highlight-values">
+              <span class="highlight-before">60.2%</span>
+              <span class="highlight-arrow" aria-hidden="true">→</span>
+              <span class="visually-hidden"> to </span>
+              <span>76.1%</span>
+            </strong>
+            <span>Success across six visual shifts<br>AdaJEPA to SE-JEPA</span>
+          </a>
+          <a class="highlight" href="#continual-results">
+            <span class="highlight-label">Continual learning</span>
+            <strong class="highlight-values">
+              <span class="highlight-before">65.3%</span>
+              <span class="highlight-arrow" aria-hidden="true">→</span>
+              <span class="visually-hidden"> to </span>
+              <span>75.5%</span>
+            </strong>
+            <span>Combined online success<br>Round 1 to round 5</span>
+          </a>
+        </div>
+      </section>
+    </div>
 
 
 
-    <section class="paper-section gallery-band" aria-labelledby="qualitative-rollouts" data-animation-group>
+    <section class="paper-section" aria-labelledby="qualitative-rollouts" data-animation-group>
       <div class="shell gallery">
         <div class="section-heading" data-scroll-reveal>
           <h2 id="qualitative-rollouts">Qualitative Rollouts</h2>
@@ -245,7 +247,7 @@
     </section>
 
 
-    <section class="paper-section method-band" id="approach" aria-labelledby="approach-title">
+    <section class="paper-section method-band module-gradient" id="approach" aria-labelledby="approach-title">
       <div class="shell">
         <h2 id="approach-title" data-scroll-reveal>Approach</h2>
         <figure class="paper-figure paper-overview" id="paper-overview" aria-labelledby="paper-overview-caption" data-scroll-reveal data-animation-group>
@@ -277,17 +279,17 @@
           <figcaption class="animation-tools figure-tools method-animation-header">
             <strong id="method-caption">SE-JEPA architecture</strong>
             <button type="button" data-animation-toggle hidden>Pause animation</button>
-            <a href="./assets/architecture-method-poster.webp">Open full-size diagram</a>
+            <a href="./assets/architecture-method-poster.webp?v=6">Open full-size diagram</a>
           </figcaption>
           <div class="animation-timeline" data-animation-timeline hidden>
             <label class="visually-hidden" for="method-position">Architecture animation progress</label>
             <input id="method-position" type="range" min="0" max="0" step="any" value="0" disabled>
             <span data-animation-time aria-hidden="true">0:00 / 0:00</span>
           </div>
-          <video class="animation" poster="./assets/architecture-method-poster.webp" width="3840" height="2160" muted playsinline loop preload="metadata"
+          <video class="animation" poster="./assets/architecture-method-poster.webp?v=6" width="3840" height="2160" muted playsinline loop preload="metadata"
             role="img" aria-label="SE-JEPA architecture animation showing predictor selection, fast adaptation during planning, and the validation and replay branches used to consolidate experience.">
-            <source src="./assets/architecture-method-4k.mp4" type='video/mp4; codecs="avc1.640033"'>
-            <source src="./assets/architecture-method.mp4" type="video/mp4">
+            <source src="./assets/architecture-method-4k.mp4?v=6" type='video/mp4; codecs="avc1.640033"'>
+            <source src="./assets/architecture-method.mp4?v=6" type="video/mp4">
           </video>
         </figure>
         <div class="reading method-equations" data-scroll-reveal>
@@ -322,115 +324,121 @@
       </div>
     </section>
 
-    <section class="paper-section shell" id="planning" aria-labelledby="planning-title">
-      <div class="reading" data-scroll-reveal>
-        <h2 id="planning-title">Planning with SE-JEPA</h2>
-        <p>SE-JEPA encodes the current observation and goal, predicts the effects of candidate action sequences in latent space, and executes the first block of the selected sequence. It replans after observing the result. We report pushing results for gradient descent (GD) and the cross-entropy method (CEM).</p>
-        <h3>Planning Results</h3>
-        <p>The paper’s CEM comparison covers seven PushObj shapes, six PushT visual shifts, and two deformable-object tasks. The PushObj unseen subset contains the I, square, and small T shapes. The PushT color subset contains three recoloring conditions.</p>
-      </div>
-
-      <figure class="results-table" data-scroll-reveal>
-        <figcaption id="planning-table-caption"><strong>Goal-conditioned planning with CEM.</strong> Paper Table 1.</figcaption>
-        <div class="table-wrap" tabindex="0" role="region" aria-labelledby="planning-table-caption">
-          <table class="wide-table" aria-labelledby="planning-table-caption">
-            <colgroup span="1"></colgroup><colgroup span="3"></colgroup><colgroup span="3"></colgroup><colgroup span="1"></colgroup><colgroup span="1"></colgroup>
-            <thead>
-              <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="3">PushObj</th><th scope="colgroup" colspan="3">PushT visual shifts</th><th scope="colgroup">Rope</th><th scope="colgroup">Granular</th></tr>
-              <tr><th scope="col">All-7 (%)</th><th scope="col">Unseen (%)</th><th scope="col">Replans ↓</th><th scope="col">All-6 (%)</th><th scope="col">Color-3 (%)</th><th scope="col">Replans ↓</th><th scope="col">CD ↓</th><th scope="col">CD ↓</th></tr>
-            </thead>
-            <tbody>
-              <tr><th scope="row">DreamerV3</th><td>7.1</td><td>5.3</td><td>28.36</td><td>5.7</td><td>0.0</td><td>28.91</td><td>2.49</td><td>1.05</td></tr>
-              <tr><th scope="row">IRIS</th><td>2.9</td><td>2.7</td><td>29.37</td><td>6.0</td><td>6.7</td><td>28.85</td><td>1.11</td><td>0.37</td></tr>
-              <tr><th scope="row">R3M</th><td>18.9</td><td>18.0</td><td>25.49</td><td>21.7</td><td>27.3</td><td>25.00</td><td>1.13</td><td>0.95</td></tr>
-              <tr><th scope="row">DINO CLS</th><td>14.9</td><td>10.0</td><td>26.77</td><td>34.7</td><td>35.3</td><td>22.38</td><td>0.84</td><td>0.79</td></tr>
-              <tr><th scope="row">DINO-WM</th><td>62.0</td><td>46.0</td><td>16.15</td><td>33.0</td><td>37.3</td><td>22.05</td><td>0.491</td><td>0.301</td></tr>
-              <tr><th scope="row">LeWM</th><td>64.0</td><td>50.0</td><td>16.28</td><td>40.3</td><td>16.0</td><td>21.45</td><td>0.786</td><td>0.322</td></tr>
-              <tr><th scope="row">DDP-WM</th><td>57.7</td><td>43.3</td><td>17.59</td><td>52.7</td><td>57.3</td><td>18.39</td><td>0.677</td><td>0.259</td></tr>
-              <tr><th scope="row">Frozen (pretrained)</th><td>43.8</td><td>36.2</td><td>21.08</td><td>48.3</td><td>33.6</td><td>20.10</td><td>0.491</td><td>0.301</td></tr>
-              <tr><th scope="row">AdaJEPA</th><td>70.4</td><td>54.4</td><td>16.02</td><td>60.2</td><td>42.2</td><td>18.46</td><td>0.629</td><td>0.304</td></tr>
-              <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>80.4</td><td>73.1</td><td>12.99</td><td>76.1</td><td>65.2</td><td>14.46</td><td>0.252</td><td>0.220</td></tr>
-            </tbody>
-          </table>
+    <section class="paper-section" id="planning" aria-labelledby="planning-title">
+      <div class="shell">
+        <div class="reading" data-scroll-reveal>
+          <h2 id="planning-title">Planning with SE-JEPA</h2>
+          <p>SE-JEPA encodes the current observation and goal, predicts the effects of candidate action sequences in latent space, and executes the first block of the selected sequence. It replans after observing the result. We report pushing results for gradient descent (GD) and the cross-entropy method (CEM).</p>
+          <h3>Planning Results</h3>
+          <p>The paper’s CEM comparison covers seven PushObj shapes, six PushT visual shifts, and two deformable-object tasks. The PushObj unseen subset contains the I, square, and small T shapes. The PushT color subset contains three recoloring conditions.</p>
         </div>
-      </figure>
-      <div class="reading" data-scroll-reveal>
-        <p class="table-note">Replans are averaged with a cap of 30 for unsuccessful episodes. CD is final Chamfer distance. The SE-JEPA PushObj results above are from the fifth online round.</p>
-        <h3 id="held-out">Held-Out Planning</h3>
-        <p>On goals excluded from learning, the paper evaluates SE-JEPA with memory writes disabled and retrieval and fast adaptation enabled. Success gains over AdaJEPA are 17.11 percentage points (GD) and 15.41 (CEM) on unseen PushObj shapes, and 18.74 (GD) and 15.89 (CEM) across six PushT visual shifts.</p>
-      </div>
-      <figure class="paper-figure narrow-figure" data-scroll-reveal>
-        <a href="./assets/paper-figure-4.webp" aria-label="Open the full-size held-out success gains figure">
-          <img src="./assets/paper-figure-4.webp" width="1700" height="1396" loading="lazy"
-            alt="Paper Figure 4 showing held-out success-rate gains of SE-JEPA over AdaJEPA by PushObj shape and PushT visual condition for GD and CEM.">
-        </a>
-        <figcaption>Held-out success gains by condition and planner · Paper Figure 4</figcaption>
-      </figure>
-    </section>
 
-    <section class="paper-section shell" id="continual-learning" aria-labelledby="continual-title" data-animation-group>
-      <div class="reading" data-scroll-reveal>
-        <h2 id="continual-title">Evaluating Continual Learning</h2>
-        <p>With a shared memory across 14 recurring shape and visual conditions, combined online success rises from 65.3% to 75.5% over five deployment rounds. Shape-task success rises from 73.4% to 82.0%, and visual-task success from 57.2% to 68.9%.</p>
-      </div>
-      <figure class="paper-figure" id="continual-results" data-scroll-reveal>
-        <a href="./assets/paper-figure-8.webp" aria-label="Open the full-size recurring-conditions figure">
-          <img src="./assets/paper-figure-8.webp" width="2300" height="897" loading="lazy"
-            alt="Paper Figure 8 showing combined, shape, and visual success across five online deployment rounds, plus images of all 14 conditions.">
-        </a>
-        <figcaption>Continual learning across recurring conditions with a shared memory · Paper Figure 8</figcaption>
-      </figure>
-      <div class="reading" data-scroll-reveal>
-        <h3>Mixed Rope and Granular Tasks</h3>
-        <p>In a separate CEM experiment, tasks alternate between Rope and Granular with 50 new goals per material in each round. A shared rope-pretrained DINO-WM serves as the base model. Fast adaptation remains enabled.</p>
-      </div>
-      <figure class="results-table" data-scroll-reveal>
-        <figcaption id="mixed-table-caption"><strong>Mixed-material deployment with CEM.</strong> Paper Table 2.</figcaption>
-        <div class="table-wrap" tabindex="0" role="region" aria-labelledby="mixed-table-caption">
-          <table aria-labelledby="mixed-table-caption">
-            <thead><tr><th scope="col">Round</th><th scope="col">Rope CD ↓</th><th scope="col">Granular CD ↓</th><th scope="col">Purity (%)</th><th scope="col">Retrieval (%)</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">1</th><td>0.598</td><td>0.471</td><td>100</td><td>96.6</td></tr>
-              <tr><th scope="row">2</th><td>0.452</td><td>0.369</td><td>100</td><td>100.0</td></tr>
-              <tr><th scope="row">3</th><td>0.412</td><td>0.355</td><td>100</td><td>100.0</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </figure>
-      <div class="reading qualitative-intro" data-scroll-reveal>
-        <h3 id="checkpoint-comparisons">Checkpoint Comparisons</h3>
-        <p>In these archived rollout examples, the same start and goal are rerun with saved predictors from Rounds 1 and 3. Both Rope runs meet the success threshold. Both Granular runs finish above the 0.20 success threshold.</p>
-        <div class="animation-tools"><button type="button" data-animation-toggle hidden>Pause animations</button></div>
-      </div>
-      <div class="rollouts" data-scroll-reveal>
-        <figure>
-          <h4>Rope</h4>
-          <div class="rollout-labels" aria-hidden="true"><span>Round 1</span><span>Goal</span><span>Round 3</span></div>
-          <video class="animation" src="./assets/rope-checkpoints-clean.mp4" poster="./assets/rope-checkpoints-clean-still.webp" width="688" height="224" muted playsinline loop preload="none"
-            role="img" aria-label="The Rope checkpoint comparison shows Round 1, the goal, and Round 3 from left to right."></video>
-          <figcaption>Final Chamfer distance drops from 0.1932 to 0.0875.</figcaption>
+        <figure class="results-table" data-scroll-reveal>
+          <figcaption id="planning-table-caption"><strong>Goal-conditioned planning with CEM.</strong> Paper Table 1.</figcaption>
+          <div class="table-wrap" tabindex="0" role="region" aria-labelledby="planning-table-caption">
+            <table class="wide-table" aria-labelledby="planning-table-caption">
+              <colgroup span="1"></colgroup><colgroup span="3"></colgroup><colgroup span="3"></colgroup><colgroup span="1"></colgroup><colgroup span="1"></colgroup>
+              <thead>
+                <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="3">PushObj</th><th scope="colgroup" colspan="3">PushT visual shifts</th><th scope="colgroup">Rope</th><th scope="colgroup">Granular</th></tr>
+                <tr><th scope="col">All-7 (%)</th><th scope="col">Unseen (%)</th><th scope="col">Replans ↓</th><th scope="col">All-6 (%)</th><th scope="col">Color-3 (%)</th><th scope="col">Replans ↓</th><th scope="col">CD ↓</th><th scope="col">CD ↓</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">DreamerV3</th><td>7.1</td><td>5.3</td><td>28.36</td><td>5.7</td><td>0.0</td><td>28.91</td><td>2.49</td><td>1.05</td></tr>
+                <tr><th scope="row">IRIS</th><td>2.9</td><td>2.7</td><td>29.37</td><td>6.0</td><td>6.7</td><td>28.85</td><td>1.11</td><td>0.37</td></tr>
+                <tr><th scope="row">R3M</th><td>18.9</td><td>18.0</td><td>25.49</td><td>21.7</td><td>27.3</td><td>25.00</td><td>1.13</td><td>0.95</td></tr>
+                <tr><th scope="row">DINO CLS</th><td>14.9</td><td>10.0</td><td>26.77</td><td>34.7</td><td>35.3</td><td>22.38</td><td>0.84</td><td>0.79</td></tr>
+                <tr><th scope="row">DINO-WM</th><td>62.0</td><td>46.0</td><td>16.15</td><td>33.0</td><td>37.3</td><td>22.05</td><td>0.491</td><td>0.301</td></tr>
+                <tr><th scope="row">LeWM</th><td>64.0</td><td>50.0</td><td>16.28</td><td>40.3</td><td>16.0</td><td>21.45</td><td>0.786</td><td>0.322</td></tr>
+                <tr><th scope="row">DDP-WM</th><td>57.7</td><td>43.3</td><td>17.59</td><td>52.7</td><td>57.3</td><td>18.39</td><td>0.677</td><td>0.259</td></tr>
+                <tr><th scope="row">Frozen (pretrained)</th><td>43.8</td><td>36.2</td><td>21.08</td><td>48.3</td><td>33.6</td><td>20.10</td><td>0.491</td><td>0.301</td></tr>
+                <tr><th scope="row">AdaJEPA</th><td>70.4</td><td>54.4</td><td>16.02</td><td>60.2</td><td>42.2</td><td>18.46</td><td>0.629</td><td>0.304</td></tr>
+                <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>80.4</td><td>73.1</td><td>12.99</td><td>76.1</td><td>65.2</td><td>14.46</td><td>0.252</td><td>0.220</td></tr>
+              </tbody>
+            </table>
+          </div>
         </figure>
-        <figure>
-          <h4>Granular</h4>
-          <div class="rollout-labels" aria-hidden="true"><span>Round 1</span><span>Goal</span><span>Round 3</span></div>
-          <video class="animation" src="./assets/granular-checkpoints-clean.mp4" poster="./assets/granular-checkpoints-clean-still.webp" width="688" height="224" muted playsinline loop preload="none"
-            role="img" aria-label="The Granular checkpoint comparison shows Round 1, the goal, and Round 3 from left to right."></video>
-          <figcaption>Final Chamfer distance drops from 0.2284 to 0.2100.</figcaption>
+        <div class="reading" data-scroll-reveal>
+          <p class="table-note">Replans are averaged with a cap of 30 for unsuccessful episodes. CD is final Chamfer distance. The SE-JEPA PushObj results above are from the fifth online round.</p>
+          <h3 id="held-out">Held-Out Planning</h3>
+          <p>On goals excluded from learning, the paper evaluates SE-JEPA with memory writes disabled and retrieval and fast adaptation enabled. Success gains over AdaJEPA are 17.11 percentage points (GD) and 15.41 (CEM) on unseen PushObj shapes, and 18.74 (GD) and 15.89 (CEM) across six PushT visual shifts.</p>
+        </div>
+        <figure class="paper-figure narrow-figure" data-scroll-reveal>
+          <a href="./assets/paper-figure-4.webp" aria-label="Open the full-size held-out success gains figure">
+            <img src="./assets/paper-figure-4.webp" width="1700" height="1396" loading="lazy"
+              alt="Paper Figure 4 showing held-out success-rate gains of SE-JEPA over AdaJEPA by PushObj shape and PushT visual condition for GD and CEM.">
+          </a>
+          <figcaption>Held-out success gains by condition and planner · Paper Figure 4</figcaption>
         </figure>
       </div>
     </section>
 
-    <section class="paper-section shell" id="bibtex" aria-labelledby="bibtex-title">
-      <div class="reading" data-scroll-reveal>
-        <h2 id="bibtex-title">BibTeX</h2>
-        <pre class="bibtex-entry"><code>@misc{lin2026sejepa,
-  title  = {{SE-JEPA}: Self-Evolving Latent World Models},
-  author = {Lin, Chen and Tu, Yiyang and Zhou, Jiacheng and
-            Pu, Haotian and Li, Bin and Zhang, Longtai and
-            Fang, Shuangkang and Wang, Hongwei},
-  year   = {2026},
-  note   = {Preprint}
-}</code></pre>
+    <section class="paper-section module-gradient" id="continual-learning" aria-labelledby="continual-title" data-animation-group>
+      <div class="shell">
+        <div class="reading" data-scroll-reveal>
+          <h2 id="continual-title">Evaluating Continual Learning</h2>
+          <p>With a shared memory across 14 recurring shape and visual conditions, combined online success rises from 65.3% to 75.5% over five deployment rounds. Shape-task success rises from 73.4% to 82.0%, and visual-task success from 57.2% to 68.9%.</p>
+        </div>
+        <figure class="paper-figure" id="continual-results" data-scroll-reveal>
+          <a href="./assets/paper-figure-8.webp" aria-label="Open the full-size recurring-conditions figure">
+            <img src="./assets/paper-figure-8.webp" width="2300" height="897" loading="lazy"
+              alt="Paper Figure 8 showing combined, shape, and visual success across five online deployment rounds, plus images of all 14 conditions.">
+          </a>
+          <figcaption>Continual learning across recurring conditions with a shared memory · Paper Figure 8</figcaption>
+        </figure>
+        <div class="reading" data-scroll-reveal>
+          <h3>Mixed Rope and Granular Tasks</h3>
+          <p>In a separate CEM experiment, tasks alternate between Rope and Granular with 50 new goals per material in each round. A shared rope-pretrained DINO-WM serves as the base model. Fast adaptation remains enabled.</p>
+        </div>
+        <figure class="results-table" data-scroll-reveal>
+          <figcaption id="mixed-table-caption"><strong>Mixed-material deployment with CEM.</strong> Paper Table 2.</figcaption>
+          <div class="table-wrap" tabindex="0" role="region" aria-labelledby="mixed-table-caption">
+            <table aria-labelledby="mixed-table-caption">
+              <thead><tr><th scope="col">Round</th><th scope="col">Rope CD ↓</th><th scope="col">Granular CD ↓</th><th scope="col">Purity (%)</th><th scope="col">Retrieval (%)</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">1</th><td>0.598</td><td>0.471</td><td>100</td><td>96.6</td></tr>
+                <tr><th scope="row">2</th><td>0.452</td><td>0.369</td><td>100</td><td>100.0</td></tr>
+                <tr><th scope="row">3</th><td>0.412</td><td>0.355</td><td>100</td><td>100.0</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </figure>
+        <div class="reading qualitative-intro" data-scroll-reveal>
+          <h3 id="checkpoint-comparisons">Checkpoint Comparisons</h3>
+          <p>In these archived rollout examples, the same start and goal are rerun with saved predictors from Rounds 1 and 3. Both Rope runs meet the success threshold. Both Granular runs finish above the 0.20 success threshold.</p>
+          <div class="animation-tools"><button type="button" data-animation-toggle hidden>Pause animations</button></div>
+        </div>
+        <div class="rollouts" data-scroll-reveal>
+          <figure>
+            <h4>Rope</h4>
+            <div class="rollout-labels" aria-hidden="true"><span>Round 1</span><span>Goal</span><span>Round 3</span></div>
+            <video class="animation" src="./assets/rope-checkpoints-clean.mp4" poster="./assets/rope-checkpoints-clean-still.webp" width="688" height="224" muted playsinline loop preload="none"
+              role="img" aria-label="The Rope checkpoint comparison shows Round 1, the goal, and Round 3 from left to right."></video>
+            <figcaption>Final Chamfer distance drops from 0.1932 to 0.0875.</figcaption>
+          </figure>
+          <figure>
+            <h4>Granular</h4>
+            <div class="rollout-labels" aria-hidden="true"><span>Round 1</span><span>Goal</span><span>Round 3</span></div>
+            <video class="animation" src="./assets/granular-checkpoints-clean.mp4" poster="./assets/granular-checkpoints-clean-still.webp" width="688" height="224" muted playsinline loop preload="none"
+              role="img" aria-label="The Granular checkpoint comparison shows Round 1, the goal, and Round 3 from left to right."></video>
+            <figcaption>Final Chamfer distance drops from 0.2284 to 0.2100.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="paper-section" id="bibtex" aria-labelledby="bibtex-title">
+      <div class="shell">
+        <div class="reading" data-scroll-reveal>
+          <h2 id="bibtex-title">BibTeX</h2>
+          <pre class="bibtex-entry"><code>@misc{lin2026sejepa,
+    title  = {{SE-JEPA}: Self-Evolving Latent World Models},
+    author = {Lin, Chen and Tu, Yiyang and Zhou, Jiacheng and
+              Pu, Haotian and Li, Bin and Zhang, Longtai and
+              Fang, Shuangkang and Wang, Hongwei},
+    year   = {2026},
+    note   = {Preprint}
+  }</code></pre>
+        </div>
       </div>
     </section>
   </main>
