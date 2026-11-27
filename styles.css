@@ -200,14 +200,18 @@ h4 { font-size: 1.3rem; }
 .abstract { max-width: 780px; margin-top: 88px; }
 .abstract p { margin-top: 1.15rem; color: var(--ink); font-size: clamp(1.07rem, 1.7vw, 1.45rem); line-height: 1.6; letter-spacing: -.025em; }
 .highlight-band { padding: 56px 0 85px; }
-.highlights { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1000px; }
+.highlights { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1000px; container: highlights / inline-size; }
 .highlights:not([hidden]) + .highlights:not([hidden]) { margin-top: 2rem; }
 .highlight-planner { grid-column: 1 / -1; margin-bottom: .9rem; text-align: center; font-size: 1.0625rem; font-weight: 650; }
 .highlight { display: flex; flex-direction: column; align-items: center; padding: .65rem clamp(1.125rem, 2vw, 1.75rem); text-align: center; }
 .highlight + .highlight { border-inline-start: 1px solid var(--line); }
 .highlight-label { font-size: 1.0625rem; font-weight: 650; line-height: 1.35; text-wrap: balance; }
-.highlight-description { font-size: .9375rem; line-height: 1.4; text-wrap: balance; }
-.highlight-methods { white-space: nowrap; }
+.highlight-description { display: grid; justify-items: center; font-size: .9375rem; line-height: 1.4; white-space: nowrap; }
+.highlight-separator { display: none; }
+@container highlights (width >= 62rem) or (20rem <= width <= 25rem) {
+  .highlight-description { grid-auto-flow: column; column-gap: .3em; }
+  .highlight-separator { display: block; }
+}
 .highlight-values {
   display: flex;
   align-items: baseline;
