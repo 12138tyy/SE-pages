@@ -185,6 +185,7 @@ h4 { font-size: 1.3rem; }
   align-items: baseline;
   gap: .28em;
   margin: .2rem 0 .35rem;
+  color: #1646e8;
   font-size: clamp(1.5rem, 3.2vw, 2.4rem);
   font-weight: 650;
   line-height: 1.2;
@@ -192,7 +193,7 @@ h4 { font-size: 1.3rem; }
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
-.highlight-before { font-weight: 500; }
+.highlight-before { color: var(--ink); font-weight: 500; }
 .highlight-arrow { font-size: .75em; font-weight: 500; }
 .highlight:hover { text-decoration: none; }
 .highlight:hover .highlight-label { text-decoration: underline; }
