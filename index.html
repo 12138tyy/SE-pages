@@ -8,8 +8,8 @@
   <title>SE-JEPA | Self-Evolving Latent World Models</title>
   <link rel="stylesheet" href="./assets/fonts/InterVariable.css">
   <link rel="stylesheet" href="./assets/fonts/InterTight.css">
-  <link rel="stylesheet" href="./styles.css?v=33">
-  <script defer src="./site.js?v=15"></script>
+  <link rel="stylesheet" href="./styles.css?v=34">
+  <script defer src="./site.js?v=16"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -82,7 +82,7 @@
             <button class="opening-playback" type="button" data-animation-toggle aria-label="Pause animations" hidden></button>
           </figcaption>
           <video class="animation opening-strip" poster="./assets/teaser-4k.webp" width="3840" height="942" muted playsinline loop preload="none"
-            role="img" aria-label="SE-JEPA in four simulation environments: PushT, PushObj, Rope, and Granular.">
+            role="img" aria-label="SE-JEPA in four simulation environments: Visual Shift, Shape Shift, Rope, and Granular.">
             <source src="./assets/teaser-4k.mp4" type='video/mp4; codecs="avc1.640033"'>
             <source src="./assets/teaser.mp4" type="video/mp4">
           </video>
@@ -91,13 +91,13 @@
               <div class="opening-scene-image">
                 <video class="animation" src="./assets/teaser.mp4" poster="./assets/teaser-4k.webp" width="914" height="224" muted playsinline loop preload="none" role="img" aria-label="A red T-shaped block is pushed toward its target."></video>
               </div>
-              <span>PushT</span>
+              <span>Visual Shift</span>
             </li>
             <li class="opening-scene scene-pushobj">
               <div class="opening-scene-image">
                 <video class="animation" src="./assets/teaser.mp4" poster="./assets/teaser-4k.webp" width="914" height="224" muted playsinline loop preload="none" role="img" aria-label="A differently shaped object is pushed toward its target."></video>
               </div>
-              <span>PushObj</span>
+              <span>Shape Shift</span>
             </li>
             <li class="opening-scene scene-rope">
               <div class="opening-scene-image">
@@ -129,40 +129,40 @@
         </div>
         <div class="shell highlights" id="highlights-cem" data-planning-panel="cem">
           <a class="highlight" href="#cem-held-out-caption">
-            <span class="highlight-label">Unseen object shapes</span>
+            <span class="highlight-label">Shape Shift</span>
             <strong class="highlight-values"><span class="highlight-before">54.44%</span><span class="highlight-arrow" aria-hidden="true">→</span><span class="visually-hidden"> to </span><span>69.85%</span></strong>
             <span>I, square, and small T<br>Held-out success · AdaJEPA to SE-JEPA</span>
           </a>
           <a class="highlight" href="#cem-held-out-caption">
-            <span class="highlight-label">Visual appearance changes</span>
+            <span class="highlight-label">Visual Shift</span>
             <strong class="highlight-values"><span class="highlight-before">60.22%</span><span class="highlight-arrow" aria-hidden="true">→</span><span class="visually-hidden"> to </span><span>76.11%</span></strong>
             <span>Blur, noise, darkness, and recoloring<br>Held-out success · AdaJEPA to SE-JEPA</span>
           </a>
           <a class="highlight" href="#continual-results">
             <span class="highlight-label">Success across repeated rounds</span>
             <span class="highlight-breakdown">
-              <span><span>Object shapes</span><strong class="highlight-values"><span class="highlight-before">72.4%</span><span class="highlight-arrow" aria-hidden="true">→</span><span class="visually-hidden"> to </span><span>82.9%</span></strong></span>
-              <span><span>Visual conditions</span><strong class="highlight-values"><span class="highlight-before">57.6%</span><span class="highlight-arrow" aria-hidden="true">→</span><span class="visually-hidden"> to </span><span>68.7%</span></strong></span>
+              <span><span>Shape Shift</span><strong class="highlight-values"><span class="highlight-before">72.4%</span><span class="highlight-arrow" aria-hidden="true">→</span><span class="visually-hidden"> to </span><span>82.9%</span></strong></span>
+              <span><span>Visual Shift</span><strong class="highlight-values"><span class="highlight-before">57.6%</span><span class="highlight-arrow" aria-hidden="true">→</span><span class="visually-hidden"> to </span><span>68.7%</span></strong></span>
             </span>
             <span>Round 1 to round 5 · 14 recurring conditions</span>
           </a>
         </div>
         <div class="shell highlights" id="highlights-gd" data-planning-panel="gd">
           <a class="highlight" href="#gd-planning-table-caption">
-            <span class="highlight-label">Unseen object shapes</span>
+            <span class="highlight-label">Shape Shift</span>
             <strong class="highlight-values"><span class="highlight-before">55.33%</span><span class="highlight-arrow" aria-hidden="true">→</span><span class="visually-hidden"> to </span><span>72.44%</span></strong>
             <span>I, square, and small T<br>Held-out success · AdaJEPA to SE-JEPA</span>
           </a>
           <a class="highlight" href="#gd-planning-table-caption">
-            <span class="highlight-label">Visual appearance changes</span>
+            <span class="highlight-label">Visual Shift</span>
             <strong class="highlight-values"><span class="highlight-before">54.89%</span><span class="highlight-arrow" aria-hidden="true">→</span><span class="visually-hidden"> to </span><span>73.63%</span></strong>
             <span>Blur, noise, darkness, and recoloring<br>Held-out success · AdaJEPA to SE-JEPA</span>
           </a>
           <a class="highlight" href="#continual-results">
             <span class="highlight-label">Success across repeated rounds</span>
             <span class="highlight-breakdown">
-              <span><span>Object shapes</span><strong class="highlight-values"><span class="highlight-before">74.4%</span><span class="highlight-arrow" aria-hidden="true">→</span><span class="visually-hidden"> to </span><span>81.1%</span></strong></span>
-              <span><span>Visual conditions</span><strong class="highlight-values"><span class="highlight-before">56.8%</span><span class="highlight-arrow" aria-hidden="true">→</span><span class="visually-hidden"> to </span><span>69.1%</span></strong></span>
+              <span><span>Shape Shift</span><strong class="highlight-values"><span class="highlight-before">74.4%</span><span class="highlight-arrow" aria-hidden="true">→</span><span class="visually-hidden"> to </span><span>81.1%</span></strong></span>
+              <span><span>Visual Shift</span><strong class="highlight-values"><span class="highlight-before">56.8%</span><span class="highlight-arrow" aria-hidden="true">→</span><span class="visually-hidden"> to </span><span>69.1%</span></strong></span>
             </span>
             <span>Round 1 to round 5 · 14 recurring conditions</span>
           </a>
@@ -181,15 +181,15 @@
         <div class="gallery-stage" data-scroll-reveal>
           <fieldset class="rollout-filter" data-rollout-filter aria-controls="rollout-set" hidden>
             <legend class="visually-hidden">Choose a rollout task</legend>
-            <label><input type="radio" name="rollout-task" value="pusht" checked><span><span class="task-thumb thumb-pusht" aria-hidden="true"></span>PushT</span></label>
-            <label><input type="radio" name="rollout-task" value="pushobj"><span><span class="task-thumb thumb-pushobj" aria-hidden="true"></span>PushObj</span></label>
+            <label><input type="radio" name="rollout-task" value="pusht" checked><span><span class="task-thumb thumb-pusht" aria-hidden="true"></span>Visual Shift</span></label>
+            <label><input type="radio" name="rollout-task" value="pushobj"><span><span class="task-thumb thumb-pushobj" aria-hidden="true"></span>Shape Shift</span></label>
             <label><input type="radio" name="rollout-task" value="rope"><span><span class="task-thumb thumb-rope" aria-hidden="true"></span>Rope</span></label>
             <label><input type="radio" name="rollout-task" value="granular"><span><span class="task-thumb thumb-granular" aria-hidden="true"></span>Granular</span></label>
             <label><input type="radio" name="rollout-task" value="all"><span>All tasks</span></label>
           </fieldset>
           <div class="rollouts" id="rollout-set" data-rollout-set role="region" aria-label="Task rollouts">
             <figure data-task="pusht">
-              <h3>PushT</h3>
+              <h3>Visual Shift</h3>
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>AdaJEPA</span><span>SE-JEPA</span></div>
               <video class="animation" poster="./assets/pusht-clean-still-4k.webp" width="688" height="224" muted playsinline loop preload="none"
                 role="img" aria-label="The left panel shows the goal. AdaJEPA fails in the middle panel and SE-JEPA reaches the goal on the right.">
@@ -199,7 +199,7 @@
               <figcaption>Red-object shift, CEM. AdaJEPA stops after 30 replans without reaching the goal. SE-JEPA succeeds in 9 replans.</figcaption>
             </figure>
             <figure data-task="pushobj">
-              <h3>PushObj</h3>
+              <h3>Shape Shift</h3>
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>AdaJEPA</span><span>SE-JEPA</span></div>
               <video class="animation" poster="./assets/pushobj-clean-still-4k.webp" width="688" height="224" muted playsinline loop preload="none"
                 role="img" aria-label="The left panel shows the I-shape goal. AdaJEPA fails in the middle panel and SE-JEPA reaches the goal on the right.">
@@ -241,19 +241,19 @@
           <summary>Rollout comparison summary <span class="summary-icon" aria-hidden="true"></span></summary>
           <div class="summary-grid">
             <figure>
-              <figcaption>PushT</figcaption>
+              <figcaption>Visual Shift</figcaption>
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>AdaJEPA</span><span>SE-JEPA</span></div>
               <div class="summary-case">
                 <p>Original appearance</p>
-                <img src="./assets/pusht-summary-4k.webp" width="688" height="224" loading="lazy" alt="Original PushT appearance. The target, AdaJEPA final state, and SE-JEPA final state are shown from left to right.">
+                <img src="./assets/pusht-summary-4k.webp" width="688" height="224" loading="lazy" alt="Original visual appearance. The target, AdaJEPA final state, and SE-JEPA final state are shown from left to right.">
               </div>
               <div class="summary-case">
                 <p>Red object</p>
-                <img src="./assets/pusht-clean-still-4k.webp" width="688" height="224" loading="lazy" alt="Red-object PushT example. The target, AdaJEPA final state, and SE-JEPA final state are shown from left to right.">
+                <img src="./assets/pusht-clean-still-4k.webp" width="688" height="224" loading="lazy" alt="Red-object visual shift example. The target, AdaJEPA final state, and SE-JEPA final state are shown from left to right.">
               </div>
             </figure>
             <figure>
-              <figcaption>PushObj</figcaption>
+              <figcaption>Shape Shift</figcaption>
               <div class="rollout-labels" aria-hidden="true"><span>Goal</span><span>AdaJEPA</span><span>SE-JEPA</span></div>
               <div class="summary-case">
                 <p>I shape</p>
@@ -370,11 +370,11 @@
           <h2 id="planning-title">Planning with SE-JEPA</h2>
           <p>SE-JEPA encodes the current observation and goal, predicts the effects of candidate action sequences in latent space, and executes the first block of the selected sequence. It replans after observing the result. We report pushing results for gradient descent (GD) and the cross-entropy method (CEM).</p>
           <h3 id="planning-results-title">Planning Results</h3>
-          <p>CEM and GD use the same paired held-out goals after five learning rounds. During testing, memory writes are disabled and retrieval and fast adaptation remain enabled.</p>
+          <p>The Shape Shift and Visual Shift tables compare CEM and GD on the same paired held-out goals after five learning rounds. During testing, memory writes are disabled and retrieval and fast adaptation remain enabled.</p>
         </div>
 
         <div class="planning-results" data-planning-results data-scroll-reveal>
-          <div class="planning-switch" role="group" aria-label="Planning results optimizer" hidden>
+          <div class="planning-switch" role="group" aria-label="Held-out and pushing benchmark planner" hidden>
             <button type="button" data-planner="cem" aria-controls="planning-cem" aria-pressed="true">CEM</button>
             <button type="button" data-planner="gd" aria-controls="planning-gd" aria-pressed="false">GD</button>
           </div>
@@ -385,7 +385,7 @@
                 <table class="held-out-table" aria-labelledby="cem-held-out-caption">
                   <colgroup span="1"></colgroup><colgroup span="3"></colgroup><colgroup span="3"></colgroup>
                   <thead>
-                    <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="3">PushObj</th><th scope="colgroup" colspan="3">PushT</th></tr>
+                    <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="3">Shape Shift</th><th scope="colgroup" colspan="3">Visual Shift</th></tr>
                     <tr><th scope="col">All-7 (%)</th><th scope="col">Unseen (%)</th><th scope="col">Replans ↓</th><th scope="col">All-7 (%)</th><th scope="col">Shift-6 (%)</th><th scope="col">Replans ↓</th></tr>
                   </thead>
                   <tbody>
@@ -397,12 +397,12 @@
               </div>
             </figure>
             <div class="reading">
-              <p class="table-note">PushObj Unseen averages the I, square, and small T shapes. PushT Shift-6 excludes the original appearance. PushT replans are averaged over all seven conditions.</p>
+              <p class="table-note">Unseen averages the I, square, and small T shapes. Shift-6 excludes the original appearance. Visual Shift replans are averaged over all seven conditions.</p>
             </div>
-            <details class="result-details" id="cem-conditions">
-              <summary>CEM results by shape and visual condition</summary>
+            <section class="planning-breakdown" id="cem-conditions" aria-labelledby="cem-conditions-title">
+              <h4 id="cem-conditions-title">CEM results by condition</h4>
               <figure class="results-table">
-                <figcaption id="cem-shapes-caption"><strong>CEM success rate by object shape (%).</strong> Paper Table VII.</figcaption>
+                <figcaption id="cem-shapes-caption"><strong>CEM Shape Shift success rate by object shape (%).</strong> Paper Table VII.</figcaption>
                 <div class="table-wrap" tabindex="0" role="region" aria-labelledby="cem-shapes-caption">
                   <table class="wide-table" aria-labelledby="cem-shapes-caption">
                     <thead><tr><th scope="col">Method</th><th scope="col">I</th><th scope="col">L</th><th scope="col">Square</th><th scope="col">Z</th><th scope="col">Small T</th><th scope="col">Plus</th><th scope="col">T</th><th scope="col">All-7</th></tr></thead>
@@ -415,7 +415,7 @@
                 </div>
               </figure>
               <figure class="results-table">
-                <figcaption id="cem-appearance-caption"><strong>CEM success rate by visual condition (%).</strong> Paper Table VIII.</figcaption>
+                <figcaption id="cem-appearance-caption"><strong>CEM Visual Shift success rate by appearance (%).</strong> Paper Table VIII.</figcaption>
                 <div class="table-wrap" tabindex="0" role="region" aria-labelledby="cem-appearance-caption">
                   <table class="wide-table" aria-labelledby="cem-appearance-caption">
                     <thead><tr><th scope="col">Method</th><th scope="col">Original</th><th scope="col">Blur</th><th scope="col">Noise</th><th scope="col">Dark</th><th scope="col">Red agent</th><th scope="col">Red object</th><th scope="col">Red goal</th><th scope="col">All-7</th><th scope="col">Shift-6</th></tr></thead>
@@ -427,7 +427,40 @@
                   </table>
                 </div>
               </figure>
-            </details>
+            </section>
+            <section class="planning-breakdown" id="cem-benchmarks" aria-labelledby="cem-benchmarks-title">
+              <h4 id="cem-benchmarks-title">Additional CEM pushing benchmarks</h4>
+              <div class="reading">
+                <p>This benchmark covers seven shapes and six visual shifts. Color-3 contains the three recoloring conditions. The Shape Shift values for SE-JEPA come from the fifth online round.</p>
+              </div>
+              <figure class="results-table">
+                <figcaption id="planning-table-caption"><strong>CEM benchmark comparison for Shape Shift and Visual Shift.</strong> Paper Table 1.</figcaption>
+                <div class="table-wrap" tabindex="0" role="region" aria-labelledby="planning-table-caption">
+                  <table class="wide-table" aria-labelledby="planning-table-caption">
+                    <colgroup span="1"></colgroup><colgroup span="3"></colgroup><colgroup span="3"></colgroup>
+                    <thead>
+                      <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="3">Shape Shift</th><th scope="colgroup" colspan="3">Visual Shift</th></tr>
+                      <tr><th scope="col">All-7 (%)</th><th scope="col">Unseen (%)</th><th scope="col">Replans ↓</th><th scope="col">All-6 (%)</th><th scope="col">Color-3 (%)</th><th scope="col">Replans ↓</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><th scope="row">DreamerV3</th><td>7.1</td><td>5.3</td><td>28.36</td><td>5.7</td><td>0.0</td><td>28.91</td></tr>
+                      <tr><th scope="row">IRIS</th><td>2.9</td><td>2.7</td><td>29.37</td><td>6.0</td><td>6.7</td><td>28.85</td></tr>
+                      <tr><th scope="row">R3M</th><td>18.9</td><td>18.0</td><td>25.49</td><td>21.7</td><td>27.3</td><td>25.00</td></tr>
+                      <tr><th scope="row">DINO CLS</th><td>14.9</td><td>10.0</td><td>26.77</td><td>34.7</td><td>35.3</td><td>22.38</td></tr>
+                      <tr><th scope="row">DINO-WM</th><td>62.0</td><td>46.0</td><td>16.15</td><td>33.0</td><td>37.3</td><td>22.05</td></tr>
+                      <tr><th scope="row">LeWM</th><td>64.0</td><td>50.0</td><td>16.28</td><td>40.3</td><td>16.0</td><td>21.45</td></tr>
+                      <tr><th scope="row">DDP-WM</th><td>57.7</td><td>43.3</td><td>17.59</td><td>52.7</td><td>57.3</td><td>18.39</td></tr>
+                      <tr><th scope="row">Frozen (pretrained)</th><td>43.8</td><td>36.2</td><td>21.08</td><td>48.3</td><td>33.6</td><td>20.10</td></tr>
+                      <tr><th scope="row">AdaJEPA</th><td>70.4</td><td>54.4</td><td>16.02</td><td>60.2</td><td>42.2</td><td>18.46</td></tr>
+                      <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>80.4</td><td>73.1</td><td>12.99</td><td>76.1</td><td>65.2</td><td>14.46</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </figure>
+              <div class="reading">
+                <p class="table-note">Unsuccessful episodes count as 30 replans when computing the average.</p>
+              </div>
+            </section>
           </div>
           <div id="planning-gd" data-planning-panel="gd">
             <figure class="results-table">
@@ -436,7 +469,7 @@
                 <table class="held-out-table" aria-labelledby="gd-planning-table-caption">
                   <colgroup span="1"></colgroup><colgroup span="3"></colgroup><colgroup span="3"></colgroup>
                   <thead>
-                    <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="3">PushObj</th><th scope="colgroup" colspan="3">PushT</th></tr>
+                    <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="3">Shape Shift</th><th scope="colgroup" colspan="3">Visual Shift</th></tr>
                     <tr><th scope="col">All-7 (%)</th><th scope="col">Unseen (%)</th><th scope="col">Replans ↓</th><th scope="col">All-7 (%)</th><th scope="col">Shift-6 (%)</th><th scope="col">Replans ↓</th></tr>
                   </thead>
                   <tbody>
@@ -448,12 +481,12 @@
               </div>
             </figure>
             <div class="reading">
-              <p class="table-note">PushObj Unseen averages the I, square, and small T shapes. PushT Shift-6 excludes the original appearance. PushT replans are averaged over all seven conditions.</p>
+              <p class="table-note">Unseen averages the I, square, and small T shapes. Shift-6 excludes the original appearance. Visual Shift replans are averaged over all seven conditions.</p>
             </div>
-            <details class="result-details" id="gd-conditions">
-              <summary>GD results by shape and visual condition</summary>
+            <section class="planning-breakdown" id="gd-conditions" aria-labelledby="gd-conditions-title">
+              <h4 id="gd-conditions-title">GD results by condition</h4>
               <figure class="results-table">
-                <figcaption id="gd-shapes-caption"><strong>GD success rate by object shape (%).</strong> Paper Table VII.</figcaption>
+                <figcaption id="gd-shapes-caption"><strong>GD Shape Shift success rate by object shape (%).</strong> Paper Table VII.</figcaption>
                 <div class="table-wrap" tabindex="0" role="region" aria-labelledby="gd-shapes-caption">
                   <table class="wide-table" aria-labelledby="gd-shapes-caption">
                     <thead><tr><th scope="col">Method</th><th scope="col">I</th><th scope="col">L</th><th scope="col">Square</th><th scope="col">Z</th><th scope="col">Small T</th><th scope="col">Plus</th><th scope="col">T</th><th scope="col">All-7</th></tr></thead>
@@ -466,7 +499,7 @@
                 </div>
               </figure>
               <figure class="results-table">
-                <figcaption id="gd-appearance-caption"><strong>GD success rate by visual condition (%).</strong> Paper Table VIII.</figcaption>
+                <figcaption id="gd-appearance-caption"><strong>GD Visual Shift success rate by appearance (%).</strong> Paper Table VIII.</figcaption>
                 <div class="table-wrap" tabindex="0" role="region" aria-labelledby="gd-appearance-caption">
                   <table class="wide-table" aria-labelledby="gd-appearance-caption">
                     <thead><tr><th scope="col">Method</th><th scope="col">Original</th><th scope="col">Blur</th><th scope="col">Noise</th><th scope="col">Dark</th><th scope="col">Red agent</th><th scope="col">Red object</th><th scope="col">Red goal</th><th scope="col">All-7</th><th scope="col">Shift-6</th></tr></thead>
@@ -478,53 +511,49 @@
                   </table>
                 </div>
               </figure>
-            </details>
+            </section>
           </div>
         </div>
-        <div class="reading" data-scroll-reveal>
-          <h3 id="held-out">Held-Out Planning</h3>
-          <p>On goals excluded from learning, the paper evaluates SE-JEPA with memory writes disabled and retrieval and fast adaptation enabled. Success gains over AdaJEPA are 17.11 percentage points (GD) and 15.41 (CEM) on unseen PushObj shapes, and 18.74 (GD) and 15.89 (CEM) across six PushT visual shifts.</p>
-        </div>
-        <figure class="paper-figure narrow-figure" data-scroll-reveal>
-          <a href="./assets/paper-figure-4-4k.webp" aria-label="Open the full-size held-out success gains figure">
-            <img src="./assets/paper-figure-4-4k.webp" width="3840" height="3153" loading="lazy"
-              alt="Paper Figure 4 showing held-out success-rate gains of SE-JEPA over AdaJEPA by PushObj shape and PushT visual condition for GD and CEM.">
-          </a>
-          <figcaption>Held-out success gains by condition and planner · Paper Figure 4</figcaption>
-        </figure>
-        <details class="result-details" id="cem-benchmarks" data-scroll-reveal>
-          <summary>Additional CEM benchmarks · Paper Table 1</summary>
+        <section class="planning-breakdown" id="robot-arm-benchmarks" aria-labelledby="robot-arm-benchmarks-title" data-scroll-reveal>
+          <h4 id="robot-arm-benchmarks-title">Robot Arm Planning</h4>
           <div class="reading">
-            <p>The paper’s CEM comparison covers seven PushObj shapes, six PushT visual shifts, and two deformable-object tasks. The PushObj unseen subset contains the I, square, and small T shapes. The PushT color subset contains three recoloring conditions.</p>
+            <p>In these CEM benchmarks, a simulated robot arm pushes rope or granular material toward a target configuration. The metric is final Chamfer distance (CD) to the goal.</p>
           </div>
           <figure class="results-table">
-            <figcaption id="planning-table-caption"><strong>Goal-conditioned planning with CEM.</strong> Paper Table 1.</figcaption>
-            <div class="table-wrap" tabindex="0" role="region" aria-labelledby="planning-table-caption">
-              <table class="wide-table" aria-labelledby="planning-table-caption">
-                <colgroup span="1"></colgroup><colgroup span="3"></colgroup><colgroup span="3"></colgroup><colgroup span="1"></colgroup><colgroup span="1"></colgroup>
-                <thead>
-                  <tr><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="3">PushObj</th><th scope="colgroup" colspan="3">PushT visual shifts</th><th scope="colgroup">Rope</th><th scope="colgroup">Granular</th></tr>
-                  <tr><th scope="col">All-7 (%)</th><th scope="col">Unseen (%)</th><th scope="col">Replans ↓</th><th scope="col">All-6 (%)</th><th scope="col">Color-3 (%)</th><th scope="col">Replans ↓</th><th scope="col">CD ↓</th><th scope="col">CD ↓</th></tr>
-                </thead>
+            <figcaption id="robot-arm-table-caption"><strong>Rope and Granular results with CEM.</strong> Paper Tables 1 and IX.</figcaption>
+            <div class="table-wrap" tabindex="0" role="region" aria-labelledby="robot-arm-table-caption">
+              <table aria-labelledby="robot-arm-table-caption">
+                <thead><tr><th scope="col">Method</th><th scope="col">Rope CD ↓</th><th scope="col">Granular CD ↓</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">DreamerV3</th><td>7.1</td><td>5.3</td><td>28.36</td><td>5.7</td><td>0.0</td><td>28.91</td><td>2.49</td><td>1.05</td></tr>
-                  <tr><th scope="row">IRIS</th><td>2.9</td><td>2.7</td><td>29.37</td><td>6.0</td><td>6.7</td><td>28.85</td><td>1.11</td><td>0.37</td></tr>
-                  <tr><th scope="row">R3M</th><td>18.9</td><td>18.0</td><td>25.49</td><td>21.7</td><td>27.3</td><td>25.00</td><td>1.13</td><td>0.95</td></tr>
-                  <tr><th scope="row">DINO CLS</th><td>14.9</td><td>10.0</td><td>26.77</td><td>34.7</td><td>35.3</td><td>22.38</td><td>0.84</td><td>0.79</td></tr>
-                  <tr><th scope="row">DINO-WM</th><td>62.0</td><td>46.0</td><td>16.15</td><td>33.0</td><td>37.3</td><td>22.05</td><td>0.491</td><td>0.301</td></tr>
-                  <tr><th scope="row">LeWM</th><td>64.0</td><td>50.0</td><td>16.28</td><td>40.3</td><td>16.0</td><td>21.45</td><td>0.786</td><td>0.322</td></tr>
-                  <tr><th scope="row">DDP-WM</th><td>57.7</td><td>43.3</td><td>17.59</td><td>52.7</td><td>57.3</td><td>18.39</td><td>0.677</td><td>0.259</td></tr>
-                  <tr><th scope="row">Frozen (pretrained)</th><td>43.8</td><td>36.2</td><td>21.08</td><td>48.3</td><td>33.6</td><td>20.10</td><td>0.491</td><td>0.301</td></tr>
-                  <tr><th scope="row">AdaJEPA</th><td>70.4</td><td>54.4</td><td>16.02</td><td>60.2</td><td>42.2</td><td>18.46</td><td>0.629</td><td>0.304</td></tr>
-                  <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>80.4</td><td>73.1</td><td>12.99</td><td>76.1</td><td>65.2</td><td>14.46</td><td>0.252</td><td>0.220</td></tr>
+                  <tr><th scope="row">DreamerV3</th><td>2.49</td><td>1.05</td></tr>
+                  <tr><th scope="row">IRIS</th><td>1.11</td><td>0.37</td></tr>
+                  <tr><th scope="row">R3M</th><td>1.13</td><td>0.95</td></tr>
+                  <tr><th scope="row">DINO CLS</th><td>0.84</td><td>0.79</td></tr>
+                  <tr><th scope="row">DINO-WM</th><td>0.491 ± 0.059</td><td>0.301 ± 0.020</td></tr>
+                  <tr><th scope="row">LeWM</th><td>0.786 ± 0.112</td><td>0.322 ± 0.018</td></tr>
+                  <tr><th scope="row">DDP-WM</th><td>0.677 ± 0.086</td><td>0.259 ± 0.012</td></tr>
+                  <tr><th scope="row">Frozen (pretrained)</th><td>0.491</td><td>0.301</td></tr>
+                  <tr><th scope="row">AdaJEPA</th><td>0.629 ± 0.096</td><td>0.304 ± 0.019</td></tr>
+                  <tr class="paper-result-highlight"><th scope="row">SE-JEPA</th><td>0.252 ± 0.045</td><td>0.220 ± 0.012</td></tr>
                 </tbody>
               </table>
             </div>
           </figure>
           <div class="reading">
-            <p class="table-note">Replans are averaged with a cap of 30 for unsuccessful episodes. CD is final Chamfer distance. The SE-JEPA PushObj results above are from the fifth online round.</p>
+            <p class="table-note">Values are means. Where shown, ± indicates the standard error over 50 goals per dataset. DreamerV3, IRIS, R3M, and DINO CLS use published results over 10 goals per dataset.</p>
           </div>
-        </details>
+        </section>
+        <div class="reading" data-scroll-reveal>
+          <h3 id="held-out">Held-Out Planning</h3>
+          <p>On goals excluded from learning, the paper evaluates SE-JEPA with memory writes disabled and retrieval and fast adaptation enabled. Success gains over AdaJEPA are 17.11 percentage points (GD) and 15.41 (CEM) on unseen shapes, and 18.74 (GD) and 15.89 (CEM) across six visual shifts.</p>
+        </div>
+        <figure class="paper-figure narrow-figure" data-scroll-reveal>
+          <a href="./assets/paper-figure-4-4k.webp" aria-label="Open the full-size held-out success gains figure">
+            <img src="./assets/paper-figure-4-4k.webp" width="3840" height="3153" loading="lazy"
+              alt="Paper Figure 4 showing held-out success-rate gains of SE-JEPA over AdaJEPA by object shape and visual condition for GD and CEM.">
+          </a>
+          <figcaption>Held-out success gains by condition and planner · Paper Figure 4</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -542,9 +571,30 @@
           <figcaption>Continual learning across recurring conditions with a shared memory · Paper Figure 8</figcaption>
         </figure>
         <div class="reading" data-scroll-reveal>
-          <h3>Mixed Rope and Granular Tasks</h3>
+          <h3 id="mixed-tasks">Mixed Rope and Granular Tasks</h3>
           <p>In a separate CEM experiment, tasks alternate between Rope and Granular with 50 new goals per material in each round. A shared rope-pretrained DINO-WM serves as the base model. Fast adaptation remains enabled.</p>
         </div>
+        <figure class="paper-figure mixed-task-gallery" data-scroll-reveal>
+          <div class="mixed-task-grid">
+            <div>
+              <h4>Rope</h4>
+              <a href="./assets/mixed-rope-rollout-4k.webp" aria-label="Open the full-size Rope rollout comparison">
+                <img src="./assets/mixed-rope-rollout-4k.webp" width="3840" height="1264" loading="lazy"
+                  alt="Three overhead simulator views of a rope. The original rollout ends with the rope tilted away from the target angle. The later rollout ends closer to that angle.">
+              </a>
+              <div class="mixed-task-labels" aria-hidden="true"><span>Original endpoint</span><span>Target</span><span>Later endpoint</span></div>
+            </div>
+            <div>
+              <h4>Granular</h4>
+              <a href="./assets/mixed-granular-rollout-4k.webp" aria-label="Open the full-size Granular rollout comparison">
+                <img src="./assets/mixed-granular-rollout-4k.webp" width="3840" height="1264" loading="lazy"
+                  alt="Three overhead simulator views of blue particles. The original rollout leaves particles scattered beyond the target clusters. The later rollout brings the particles closer to the target distribution.">
+              </a>
+              <div class="mixed-task-labels" aria-hidden="true"><span>Original endpoint</span><span>Target</span><span>Later endpoint</span></div>
+            </div>
+          </div>
+          <figcaption>For each material, the original online actions and the later checkpoint’s actions were replayed from the same start toward the same target.</figcaption>
+        </figure>
         <figure class="results-table" data-scroll-reveal>
           <figcaption id="mixed-table-caption"><strong>Mixed-material deployment with CEM.</strong> Paper Table 2.</figcaption>
           <div class="table-wrap" tabindex="0" role="region" aria-labelledby="mixed-table-caption">

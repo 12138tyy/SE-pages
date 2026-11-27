@@ -351,6 +351,11 @@ h4 { font-size: 1.3rem; }
 .narrow-figure { max-width: 37rem; }
 .paper-figure figcaption, .rollouts figcaption { margin-top: .68rem; font-size: .9375rem; font-weight: 500; line-height: 1.55; }
 .paper-figure figcaption { text-align: center; }
+.mixed-task-gallery { max-width: 68rem; margin-top: 2rem; }
+.mixed-task-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2rem; }
+.mixed-task-grid h4 { margin-bottom: .65rem; text-align: center; }
+.mixed-task-labels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .3rem; margin-top: .4rem; text-align: center; font-size: .875rem; font-weight: 600; line-height: 1.3; }
+.mixed-task-gallery figcaption { max-width: 44rem; margin: 1rem auto 0; }
 .figure-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .25rem .8rem; font-size: .9375rem; }
 .figure-tools a { padding: .15rem .25rem; text-decoration: underline; }
 .planning-switch {
@@ -382,10 +387,8 @@ h4 { font-size: 1.3rem; }
 .results-table tbody th { font-weight: inherit; }
 .results-table .paper-result-highlight { border-top: 2px solid var(--ink); font-weight: 700; }
 .reading .table-note { margin-top: .75rem; font-size: .9375rem; }
-.result-details { margin-top: 1.5rem; border-block: 1px solid var(--line); }
-.result-details > summary { padding: .8rem .35rem; font-weight: 650; cursor: pointer; }
-.result-details > summary:hover { text-decoration: underline; }
-.result-details[open] { padding-bottom: 1.25rem; }
+.planning-breakdown { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.planning-breakdown > h4 { text-align: center; }
 #bibtex { padding-block: .8rem; }
 .citation-panel { position: relative; max-width: 760px; }
 .citation-details summary {
@@ -447,6 +450,7 @@ h4 { font-size: 1.3rem; }
   .highlight { padding-block: .85rem; }
   .highlight + .highlight { border-inline-start: 0; border-block-start: 1px solid var(--line); }
   .highlight-values { font-size: clamp(1.75rem, 6vw, 2.25rem); }
+  .mixed-task-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 600px) {

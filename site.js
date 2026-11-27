@@ -306,7 +306,7 @@ function connectPlanningResults() {
 
   function resultTarget(fragment) {
     const target = document.getElementById(fragment.slice(1));
-    return target?.closest("[data-planning-panel], #cem-benchmarks") ? target : null;
+    return target?.closest("[data-planning-panel]") ? target : null;
   }
 
   function chooseFromFragment(fragment) {
@@ -315,8 +315,6 @@ function connectPlanningResults() {
 
     const panel = target.closest("[data-planning-panel]");
     if (panel) choose(panel.dataset.planningPanel);
-    const details = target.closest("details");
-    if (details) details.open = true;
   }
 
   for (const button of buttons) {
